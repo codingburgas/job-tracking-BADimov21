@@ -14,4 +14,8 @@
     <Folder Include="Persistance\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\JobTracking.DataAccess\JobTracking.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
