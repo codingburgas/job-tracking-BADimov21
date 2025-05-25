@@ -33,7 +33,6 @@ public class UserService : IUserService
                 MiddleName = u.MiddleName,
                 LastName = u.LastName,
                 Username = u.Username,
-                Password = u.Password,
                 Role = u.Role
             })
             .FirstAsync();
