@@ -2,6 +2,8 @@ using JobTracking.Application.Contracts.Base;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
+using JobTracking.Domain.Filters;
+using JobTracking.Domain.Filters.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracking.API.Controllers;
@@ -38,6 +40,12 @@ public class UserController : Controller
         });
 
         return Ok(response);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> GetUsers([FromBody] BaseFilter<UserFilter> userFilter)
+    {
+        return Ok(await _userService.GetUsers(userFilter));
     }
 
     [HttpGet("filter")]

@@ -2,6 +2,8 @@ using JobTracking.DataAccess.Data.Models;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
+using JobTracking.Domain.Filters;
+using JobTracking.Domain.Filters.Base;
 
 namespace JobTracking.Application.Contracts.Base;
 
@@ -13,4 +15,5 @@ public interface IUserService
     public Task<bool> UpdateUser(UserUpdateRequestDTO dto);
     public Task<bool> DeleteUser(int id);
     public Task<List<UserResponseDTO>> GetFilteredUsers(string? username);
+    public Task<IQueryable<UserResponseDTO>> GetUsers(BaseFilter<UserFilter> filter);
 }
