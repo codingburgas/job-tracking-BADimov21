@@ -3,6 +3,7 @@ using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Enums;
+using JobTracking.Domain.Filters.Base;
 
 namespace JobTracking.Application.Contracts.Base;
 
@@ -13,5 +14,6 @@ public interface IJobApplicationService
     public Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto);
     public Task<bool> UpdateJobApplication(JobApplicationUpdateRequestDTO dto);
     public Task<bool> DeleteJobApplication(int id);
-    public Task<List<JobApplicationResponseDTO>> GetFilteredJobApplications(ApplicationStatusEnum? status, int? userId, int? jobAdId);
+    public Task<IQueryable<JobApplicationResponseDTO>> GetFilteredJobApplications(
+        BaseFilter<JobApplicationFilter> filter);
 }

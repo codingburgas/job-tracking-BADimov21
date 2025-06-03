@@ -4,6 +4,7 @@ using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Enums;
+using JobTracking.Domain.Filters.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.Application.Implementation;
@@ -38,33 +39,29 @@ public class JobApplicationService : IJobApplicationService
             })
             .FirstOrDefaultAsync();
     }
-    
-    public async Task<List<JobApplicationResponseDTO>> GetFilteredJobApplications(ApplicationStatusEnum? status, int? userId, int? jobAdId)
+
+    public async Task<IQueryable<JobApplicationResponseDTO>> GetFilteredJobApplications(
+        BaseFilter<JobApplicationFilter> filter)
     {
-        var query = Provider.Db.JobApplications.AsQueryable();
+        IQueryable<JobApplication> query = Provider.Db.JobApplications;
 
-        if (status.HasValue)
+        JobApplicationFilter? jobApplicationFilter = filter.Filters;
+
+        if (jobApplicationFilter is not null)
         {
-            query = query.Where(j => j.Status == status);
+            if (jobApplicationFilter.Status.HasValue)
+            {
+                query = query.Where(j => j.Status == jobApplicationFilter.Status);
+            }
         }
+        
+        query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
 
-        if (userId.HasValue)
+        return query.Select(x => new JobApplicationResponseDTO()
         {
-            query = query.Where(j => j.UserId == userId);
-        }
-
-        if (jobAdId.HasValue)
-        {
-            query = query.Where(j => j.JobAdId == jobAdId);
-        }
-
-        return await query.Select(j => new JobApplicationResponseDTO
-        {
-            Id = j.Id,
-            UserId = j.UserId,
-            JobAdId = j.JobAdId,
-            Status = j.Status
-        }).ToListAsync();
+            Id = x.Id,
+            Status = x.Status,
+        });
     }
 
     public async Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto)

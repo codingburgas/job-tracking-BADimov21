@@ -2,6 +2,8 @@
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
+using JobTracking.Domain.Filters;
+using JobTracking.Domain.Filters.Base;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +21,7 @@ public class JobAdController : Controller
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<JobAdResponseDTO>> GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
         var result = await _jobAdService.GetJobAd(id);
 
@@ -32,7 +34,7 @@ public class JobAdController : Controller
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<JobAdResponseDTO>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
     {
         var result = await _jobAdService.GetAllJobAds(page, pageCount);
 
@@ -49,16 +51,14 @@ public class JobAdController : Controller
         return Ok(response);
     }
 
-    [HttpGet("filter")]
-    public async Task<ActionResult<IEnumerable<JobAdResponseDTO>>> GetFiltered([FromQuery] string? title,
-        [FromQuery] bool? isOpen)
+    [HttpPost]
+    public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<JobAdFilter> jobAdFilter)
     {
-        var result = await _jobAdService.GetFilteredJobAds(title, isOpen);
-        return Ok(result);
+        return Ok(await _jobAdService.GetFilteredJobAds(jobAdFilter));
     }
     
     [HttpPost]
-    public async Task<ActionResult<JobAdResponseDTO>> Add([FromBody] JobAdCreateRequestDTO dto)
+    public async Task<IActionResult> Add([FromBody] JobAdCreateRequestDTO dto)
     {
         var created = await _jobAdService.CreateJobAd(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);

@@ -38,6 +38,8 @@ namespace JobTracking.API
         {
             builder.Services.AddScoped<DependencyProvider>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IJobAdService, JobAdService>();
+            builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
         }
  
         public static void AddCors(this WebApplicationBuilder builder)

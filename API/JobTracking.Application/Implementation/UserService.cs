@@ -43,6 +43,53 @@ public class UserService : IUserService
             })
             .FirstOrDefaultAsync();
     }
+    
+    public async Task<IQueryable<UserResponseDTO>> GetFilteredUsers(BaseFilter<UserFilter> filter)
+    {
+        IQueryable<User> query = Provider.Db.Users;
+
+        UserFilter? userFilter = filter.Filters;
+
+        if (userFilter is not null)
+        {
+            if (!string.IsNullOrEmpty(userFilter.FirstName))
+            {
+                query = query.Where(u => u.FirstName.Contains(userFilter.FirstName));
+            }
+
+            if (!string.IsNullOrEmpty(userFilter.MiddleName))
+            {
+                query = query.Where(u => u.MiddleName.Contains(userFilter.MiddleName));
+            }
+
+            if (!string.IsNullOrEmpty(userFilter.LastName))
+            {
+                query = query.Where(u => u.LastName.Contains(userFilter.LastName));
+            }
+
+            if (!string.IsNullOrEmpty(userFilter.Username))
+            {
+                query = query.Where(u => u.Username.Contains(userFilter.Username));
+            }
+
+            if (userFilter.Role is not null)
+            {
+                query = query.Where(u => u.Role == userFilter.Role);
+            }
+        }
+
+        query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
+
+        return query.Select(x => new UserResponseDTO()
+        {
+            Id = x.Id,
+            FirstName = x.FirstName,
+            MiddleName = x.MiddleName,
+            LastName = x.LastName,
+            Username = x.Username,
+            Role = x.Role
+        });
+    }
 
     public async Task<UserResponseDTO> CreateUser(UserCreateRequestDTO dto)
     {
@@ -113,76 +160,5 @@ public class UserService : IUserService
         Provider.Db.Users.Remove(entity);
         await Provider.Db.SaveChangesAsync();
         return true;
-    }
-
-    public async Task<List<UserResponseDTO>> GetFilteredUsers(string? username)
-    {
-        var query = Provider.Db.Users.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(username))
-        {
-            query = query.Where(u => u.Username.Contains(username));
-        }
-
-        var result = await query
-            .Select(u => new UserResponseDTO
-            {
-                Id = u.Id,
-                FirstName = u.FirstName,
-                MiddleName = u.MiddleName,
-                LastName = u.LastName,
-                Username = u.Username,
-                Role = u.Role
-            })
-            .ToListAsync();
-
-        return result;
-    }
-
-    public async Task<IQueryable<UserResponseDTO>> GetUsers(BaseFilter<UserFilter> filter)
-    {
-        IQueryable<User> query = Provider.Db.Users;
-
-        UserFilter? userFilter = filter.Filters;
-
-        if (userFilter is not null)
-        {
-            if (!string.IsNullOrEmpty(userFilter.FirstName))
-            {
-                query = query.Where(u => u.FirstName.Contains(userFilter.FirstName));
-            }
-
-            if (!string.IsNullOrEmpty(userFilter.MiddleName))
-            {
-                query = query.Where(u => u.MiddleName.Contains(userFilter.MiddleName));
-            }
-
-            if (!string.IsNullOrEmpty(userFilter.LastName))
-            {
-                query = query.Where(u => u.LastName.Contains(userFilter.LastName));
-            }
-
-            if (!string.IsNullOrEmpty(userFilter.Username))
-            {
-                query = query.Where(u => u.Username.Contains(userFilter.Username));
-            }
-
-            if (userFilter.Role is not null)
-            {
-                query = query.Where(u => u.Role == userFilter.Role);
-            }
-        }
-
-        query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
-
-        return query.Select(x => new UserResponseDTO()
-        {
-            Id = x.Id,
-            FirstName = x.FirstName,
-            MiddleName = x.MiddleName,
-            LastName = x.LastName,
-            Username = x.Username,
-            Role = x.Role
-        });
     }
 }

@@ -3,6 +3,8 @@ using JobTracking.DataAccess.Data.Models;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
+using JobTracking.Domain.Filters;
+using JobTracking.Domain.Filters.Base;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.Application.Implementation;
@@ -104,32 +106,44 @@ public class JobAdService : IJobAdService
         return true;
     }
 
-    public async Task<List<JobAdResponseDTO>> GetFilteredJobAds(string? title, bool? isOpen)
+    public async Task<IQueryable<JobAdResponseDTO>> GetFilteredJobAds(BaseFilter<JobAdFilter> filter)
     {
-        var query = Provider.Db.JobAds.AsQueryable();
+        IQueryable<JobAd> query = Provider.Db.JobAds;
 
-        if (!string.IsNullOrWhiteSpace(title))
-        {
-            query = query.Where(j => j.Title.Contains(title));
-        }
+        JobAdFilter? jobAdFilter = filter.Filters;
 
-        if (isOpen.HasValue)
+        if (jobAdFilter is not null)
         {
-            query = query.Where(j => j.IsOpen == isOpen.Value);
+            if (!string.IsNullOrEmpty(jobAdFilter.Title))
+            {
+                query = query.Where(j => j.Title.Contains(jobAdFilter.Title));
+            }
+
+            if (!string.IsNullOrEmpty(jobAdFilter.CompanyName))
+            {
+                query = query.Where(j => j.CompanyName.Contains(jobAdFilter.CompanyName));
+            }
+
+            if (jobAdFilter.PublishedOn.HasValue)
+            {
+                query = query.Where(j => j.PublishedOn >= jobAdFilter.PublishedOn);
+            }
+
+            if (jobAdFilter.IsOpen.HasValue)
+            {
+                query = query.Where(j => j.IsOpen == jobAdFilter.IsOpen);
+            }
         }
         
-        var result = await query
-            .Select(j => new JobAdResponseDTO
-            {
-                Id = j.Id,
-                Title = j.Title,
-                CompanyName = j.CompanyName,
-                Description = j.Description,
-                PublishedOn = j.PublishedOn,
-                IsOpen = j.IsOpen
-            })
-            .ToListAsync();
+        query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
 
-        return result;
+        return query.Select(x => new JobAdResponseDTO()
+        {
+            Id = x.Id,
+            Title = x.Title,
+            CompanyName = x.CompanyName,
+            PublishedOn = x.PublishedOn,
+            IsOpen = x.IsOpen,
+        });
     }
 }

@@ -14,6 +14,5 @@ public interface IUserService
     public Task<UserResponseDTO> CreateUser(UserCreateRequestDTO dto);
     public Task<bool> UpdateUser(UserUpdateRequestDTO dto);
     public Task<bool> DeleteUser(int id);
-    public Task<List<UserResponseDTO>> GetFilteredUsers(string? username);
-    public Task<IQueryable<UserResponseDTO>> GetUsers(BaseFilter<UserFilter> filter);
+    public Task<IQueryable<UserResponseDTO>> GetFilteredUsers(BaseFilter<UserFilter> filter);
 }

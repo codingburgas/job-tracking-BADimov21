@@ -1,8 +1,10 @@
 ﻿using JobTracking.Application.Contracts.Base;
+using JobTracking.DataAccess.Data.Models;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Enums;
+using JobTracking.Domain.Filters.Base;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobTracking.API.Controllers;
@@ -25,24 +27,20 @@ public class JobApplicationController : Controller
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<JobApplicationResponseDTO>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
     {
         var result = await _jobApplicationService.GetAllJobApplications(page, pageCount);
         return Ok(result);
     }
 
-    [HttpGet("filter")]
-    public async Task<ActionResult<IEnumerable<JobApplicationResponseDTO>>> GetFiltered(
-        [FromQuery] ApplicationStatusEnum? status,
-        [FromQuery] int? userId,
-        [FromQuery] int? jobAdId)
+    [HttpPost]
+    public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<JobApplicationFilter> jobApplicationFilter)
     {
-        var result = await _jobApplicationService.GetFilteredJobApplications(status, userId, jobAdId);
-        return Ok(result);
+        return Ok(await _jobApplicationService.GetFilteredJobApplications(jobApplicationFilter));
     }
 
     [HttpPost]
-    public async Task<ActionResult<JobApplicationResponseDTO>> Add([FromBody] JobApplicationCreateRequestDTO dto)
+    public async Task<IActionResult> Add([FromBody] JobApplicationCreateRequestDTO dto)
     {
         var created = await _jobApplicationService.CreateJobApplication(dto);
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);

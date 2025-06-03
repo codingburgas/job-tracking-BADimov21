@@ -26,7 +26,7 @@ public class UserController : Controller
     }
     
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserResponseDTO>>> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
+    public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
     {
         var users = await _userService.GetAllUsers(page, pageCount);
         var response = users.Select(u => new UserResponseDTO
@@ -43,20 +43,13 @@ public class UserController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> GetUsers([FromBody] BaseFilter<UserFilter> userFilter)
+    public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<UserFilter> userFilter)
     {
-        return Ok(await _userService.GetUsers(userFilter));
-    }
-
-    [HttpGet("filter")]
-    public async Task<ActionResult<IEnumerable<UserResponseDTO>>> GetFiltered([FromQuery] string? username)
-    {
-        var users = await _userService.GetFilteredUsers(username);
-        return Ok(users);
+        return Ok(await _userService.GetFilteredUsers(userFilter));
     }
 
     [HttpPost]
-    public async Task<ActionResult<UserResponseDTO>> Add([FromBody] UserCreateRequestDTO dto)
+    public async Task<IActionResult> Add([FromBody] UserCreateRequestDTO dto)
     {
         var user = await _userService.CreateUser(dto);
         return CreatedAtAction(nameof(GetById), new { id = user.Id }, user);
