@@ -2,7 +2,7 @@
     
   <h4 align="center"> I am Bozhidar Dimov and I would like to show you my application: </h4>
     <p align="center">    
-        <img align="center" src="https://github.com/user-attachments/assets/473587a2-8cab-46a6-87ef-6771688154b5" alt="Grindin' Logo" width="850", height="400">
+        <img align="center" src="https://github.com/user-attachments/assets/473587a2-8cab-46a6-87ef-6771688154b5" alt="Grindin' Logo" width="1000", height="400">
     </p>
 <hr>
     
@@ -98,6 +98,7 @@
 
 <h2 id="documentation">Documentation</h2>
 <hr>
+
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="">Documentation</a>
 <br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Microsoft_PowerPoint_Logo.png" width="20" alt="MS PowerPoint Logo"> <a href="">Presentation</a>
@@ -108,7 +109,7 @@
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <h2 id="installation">Installation (to run the source code)</h2>
-<pre>Installation is to be added soon.</pre>
+<strong>Installation is to be added soon.</strong>
 <br>
 <p align="center">If any problems occur during the installation, feel free to contact the creator of the application "<strong>Grindin'</strong>" for assistance and guidance by the enclosed email address <a href="#contributors">here</a>.</p>
 
