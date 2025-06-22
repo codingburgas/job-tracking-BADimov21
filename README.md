@@ -2,7 +2,7 @@
     
   <h4 align="center"> I am Bozhidar Dimov and I would like to show you my application: </h4>
     <p align="center">    
-        <img align="center" src="https://github.com/user-attachments/assets/473587a2-8cab-46a6-87ef-6771688154b5" alt="Grindin' Logo" width="1000", height="400">
+        <img align="center" src="https://github.com/user-attachments/assets/473587a2-8cab-46a6-87ef-6771688154b5" alt="Grindin' Logo" width="1100", height="400">
     </p>
 <hr>
     
@@ -103,6 +103,15 @@
 <br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Microsoft_PowerPoint_Logo.png" width="20" alt="MS PowerPoint Logo"> <a href="">Presentation</a>
 <br>
+
+<table>
+    <tr>
+        <th>Entity-Relationship Diagram</th>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/user-attachments/assets/5add6a47-da61-439e-82b5-8164079fb643"></td>
+    </tr>
+</table>
 
 <hr>
 
