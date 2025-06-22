@@ -73,10 +73,11 @@
 ##  Used Technologies
 - <img src="https://github.com/user-attachments/assets/0bee38f1-71a5-4afe-a015-47c9967b82a1" width="20" alt="JetBrains Rider Logo"> <a href="https://www.jetbrains.com/rider/">JetBrains Rider</a>
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Visual_Studio_Code_1.35_icon.svg/1200px-Visual_Studio_Code_1.35_icon.svg.png" width="20" alt="MS Visual Studio Code Logo"> <a href="https://code.visualstudio.com/">Visual Studio Code</a>
+- <img src="https://github.com/user-attachments/assets/0da024a5-9cd2-4181-9a76-bf1cdd41496c" width="20" alt="SSMS 20 Logo"> <a href="https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">SSMS 20</a>
 - <img src="https://learn.microsoft.com/en-us/media/logos/logo_net.svg" width="20" alt=".NET Logo"> <a href="https://dotnet.microsoft.com">.NET</a>
 - <img src="https://github.com/user-attachments/assets/d3afdc32-6f87-4528-a6e6-433d6439b969" width="20" alt="ASP.NET Logo"> <a href="https://dotnet.microsoft.com/en-us/apps/aspnet">ASP.NET</a>
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/2048px-Angular_full_color_logo.svg.png" width="20" alt="Angular Logo"> <a href="https://angular.dev">Angular</a>
-- <img src="https://github.com/user-attachments/assets/0da024a5-9cd2-4181-9a76-bf1cdd41496c" width="20" alt="SSMS 20 Logo"> <a href="https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms">SSMS 20</a>
+- <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbUmT9_GRWOBCrONVeHQKEWZ667kVPjYjYYw&s" width="20" alt="EF Core Logo"> <a href="https://learn.microsoft.com/en-us/ef/core/">EF Core</a>
 - <img src="https://github.com/user-attachments/assets/691b42a9-ad5e-47fe-a2de-2adc2745419b" width="20" alt="GitHub Logo"> <a href="https://github.com/">GitHub</a>
 - <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://en.wikipedia.org/wiki/Microsoft_Word">MS Word</a>
 - <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Microsoft_PowerPoint_Logo.png" width="20" alt="MS PowerPoint Logo"> <a href="https://bg.wikipedia.org/wiki/Microsoft_PowerPoint">MS PowerPoint</a>
