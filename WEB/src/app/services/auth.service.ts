@@ -8,6 +8,14 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  isAuthenticated(): boolean {
+    return !!localStorage.getItem('authToken');
+  }
+
+  logout() {
+    localStorage.removeItem('authToken');
+  }
+
   register(user: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/User/Add`, user);
   }

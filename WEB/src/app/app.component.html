@@ -1,4 +1,10 @@
-<app-nav-bar></app-nav-bar>
-<router-outlet></router-outlet>
-Home page is to be created.
-<app-footer></app-footer>
+<!-- app.component.html -->
+<ng-container *ngIf="auth.isAuthenticated(); else loginOnly">
+  <app-nav-bar></app-nav-bar>
+  <router-outlet></router-outlet>
+  <app-footer></app-footer>
+</ng-container>
+
+<ng-template #loginOnly>
+  <router-outlet></router-outlet>  <!-- this will render only login -->
+</ng-template>

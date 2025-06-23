@@ -15,21 +15,10 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/job-applications" routerLinkActive="active">Моите кандидатури</a>
         </li>
-
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Админ
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/admin/job-ads">Управление на обяви</a></li>
-            <li><a class="dropdown-item" routerLink="/admin/applications">Управление на кандидатури</a></li>
-          </ul>
-        </li>
       </ul>
 
       <div class="d-flex gap-2">
-        <button class="btn btn-outline-primary btn-sm" routerLink="/login-form">Вход</button>
-        <button class="btn btn-primary btn-sm" routerLink="/registration-form">Регистрация</button>
+        <button class="btn btn-outline-primary btn-sm" (click)="onLogout()">Отпишете се</button>
       </div>
     </div>
   </div>

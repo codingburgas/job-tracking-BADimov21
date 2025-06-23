@@ -4,6 +4,7 @@ import { RouterOutlet, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
     selector: 'app-root',
@@ -14,4 +15,5 @@ import { FooterComponent } from './components/footer/footer.component';
 })
 export class AppComponent {
   title = 'job-training';
+  constructor(public auth: AuthService) {}
 }

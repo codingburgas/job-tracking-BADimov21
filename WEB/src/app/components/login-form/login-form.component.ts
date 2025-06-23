@@ -36,7 +36,9 @@ export class LoginFormComponent {
       this.authService.login(username, password).subscribe({
         next: (response) => {
           console.log('Login success', response);
+          localStorage.setItem('authToken', response.token);
           alert('Успешно влизане!');
+          this.router.navigate(['/job-applications']);
         },
         error: (err) => {
           console.error('Login error', err);
