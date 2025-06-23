@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup,  ReactiveFormsModule } from '@angular/forms';
-import { ParseSourceFile } from '@angular/compiler';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-registration-form',
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './registration-form.component.html',
-  styleUrl: './registration-form.component.scss'
+  styleUrl: './registration-form.component.scss',
 })
 export class RegistrationFormComponent {
   registerForm: FormGroup;
   showPassword = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       firstName: [''],
       middleName: [''],
@@ -21,7 +21,7 @@ export class RegistrationFormComponent {
       username: [''],
       password: [''],
       confirmPassword: [''],
-      role: [0],  // Always 0, hidden from form
+      role: [0],
     });
   }
 
@@ -32,12 +32,22 @@ export class RegistrationFormComponent {
   onSubmit() {
     if (this.registerForm.valid) {
       const formValue = this.registerForm.value;
+
       if (formValue.password !== formValue.confirmPassword) {
         alert('Паролите не съвпадат!');
         return;
       }
-      console.log('Регистрация:', formValue);
-      // Your registration logic here
+
+      this.authService.register(formValue).subscribe({
+        next: () => {
+          alert('Успешна регистрация!');
+          this.router.navigate(['/login-form']);
+        },
+        error: (err) => {
+          console.error('Registration error:', err);
+          alert('Възникна грешка при регистрацията. Виж конзолата за подробности.');
+        }
+      });
     }
   }
 }

@@ -98,13 +98,15 @@ public class UserService : IUserService
             throw new InvalidOperationException("Username already exists.");
         }
 
+        var hashedPassword = PasswordHasher.HashPassword(dto.Password);
+
         var entity = new User
         {
             FirstName = dto.FirstName,
             MiddleName = dto.MiddleName,
             LastName = dto.LastName,
             Username = dto.Username,
-            Password = dto.Password,
+            Password = hashedPassword,
             Role = dto.Role,
             CreatedOn = DateTime.UtcNow,
             CreatedBy = "system",
@@ -138,7 +140,12 @@ public class UserService : IUserService
         entity.MiddleName = dto.MiddleName;
         entity.LastName = dto.LastName;
         entity.Username = dto.Username;
-        entity.Password = dto.Password;
+
+        if (!string.IsNullOrEmpty(dto.Password))
+        {
+            entity.Password = PasswordHasher.HashPassword(dto.Password);
+        }
+
         entity.Role = dto.Role;
         entity.UpdatedOn = DateTime.UtcNow;
         entity.UpdatedBy = "system";
@@ -147,6 +154,7 @@ public class UserService : IUserService
         await Provider.Db.SaveChangesAsync();
         return true;
     }
+
 
     public async Task<bool> DeleteUser(int userId)
     {

@@ -1,4 +1,5 @@
 using JobTracking.DataAccess;
+using JobTracking.DataAccess.Persistance;
 
 namespace JobTracking.Application.Contracts.Base;
 

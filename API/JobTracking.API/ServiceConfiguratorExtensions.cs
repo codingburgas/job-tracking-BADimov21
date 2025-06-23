@@ -1,6 +1,7 @@
 ﻿using JobTracking.Application.Contracts.Base;
 using JobTracking.Application.Implementation;
 using JobTracking.DataAccess;
+using JobTracking.DataAccess.Persistance;
 
 namespace JobTracking.API
 {
@@ -40,6 +41,7 @@ namespace JobTracking.API
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IJobAdService, JobAdService>();
             builder.Services.AddScoped<IJobApplicationService, JobApplicationService>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
         }
  
         public static void AddCors(this WebApplicationBuilder builder)

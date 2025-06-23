@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace JobTracking.DataAccess.Migrations
+namespace JobTracking.DataAccess.Persistance
 {
     /// <inheritdoc />
     public partial class InitialMigration : Migration

@@ -1,10 +1,13 @@
 using JobTracking.Application.Contracts.Base;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
+using JobTracking.Domain.DTOs.Request;
 using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Filters;
 using JobTracking.Domain.Filters.Base;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
+using LoginRequest = JobTracking.Domain.DTOs.Request.LoginRequest;
 
 namespace JobTracking.API.Controllers;
 
@@ -13,10 +16,12 @@ namespace JobTracking.API.Controllers;
 public class UserController : Controller
 {
     private readonly IUserService _userService;
+    private readonly IAuthService _authService;
     
-    public UserController(IUserService userService)
+    public UserController(IUserService userService, IAuthService authService)
     {
         _userService = userService;
+        _authService = authService;
     }
 
     [HttpGet]
@@ -46,6 +51,18 @@ public class UserController : Controller
     public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<UserFilter> userFilter)
     {
         return Ok(await _userService.GetFilteredUsers(userFilter));
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    {
+        var user = await _authService.AuthenticateAsync(request.Username, request.Password);
+        if (user is null)
+        {
+            return Unauthorized("Invalid credentials");
+        }
+
+        return Ok(user);
     }
 
     [HttpPost]

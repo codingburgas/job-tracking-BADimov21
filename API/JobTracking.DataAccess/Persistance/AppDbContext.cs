@@ -1,7 +1,7 @@
 using JobTracking.DataAccess.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobTracking.DataAccess;
+namespace JobTracking.DataAccess.Persistance;
 
 public class AppDbContext : DbContext
 {

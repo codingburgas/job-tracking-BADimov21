@@ -1,22 +1,28 @@
 import { Component } from '@angular/core';
-
 import { Router, RouterLink } from '@angular/router';
-import { FormBuilder, FormGroup,  ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login-form',
   imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './login-form.component.html',
-  styleUrl: './login-form.component.scss'
+  styleUrl: './login-form.component.scss',
+  standalone: true
 })
 export class LoginFormComponent {
   loginForm: FormGroup;
   showPassword = false;
+  errorMessage: string | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
-      username: [''],
-      password: [''],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
@@ -25,8 +31,18 @@ export class LoginFormComponent {
   }
 
   onLogin() {
-    const { username, password } = this.loginForm.value;
-    console.log('Login attempt:', username, password);
-    // Add your login logic here
+    if (this.loginForm.valid) {
+      const { username, password } = this.loginForm.value;
+      this.authService.login(username, password).subscribe({
+        next: (response) => {
+          console.log('Login success', response);
+          alert('Успешно влизане!');
+        },
+        error: (err) => {
+          console.error('Login error', err);
+          alert('Грешно потребителско име или парола');
+        }
+      });
+    }
   }
 }
