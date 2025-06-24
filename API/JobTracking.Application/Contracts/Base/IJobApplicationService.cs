@@ -1,4 +1,5 @@
 ﻿using JobTracking.DataAccess.Data.Models;
+using JobTracking.Domain.DTOs;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
@@ -14,6 +15,7 @@ public interface IJobApplicationService
     public Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto);
     public Task<bool> UpdateJobApplication(JobApplicationUpdateRequestDTO dto);
     public Task<bool> DeleteJobApplication(int id);
-    public Task<IQueryable<JobApplicationResponseDTO>> GetFilteredJobApplications(
+
+    public Task<PagedResult<JobApplicationResponseDTO>> GetFilteredJobApplications(
         BaseFilter<JobApplicationFilter> filter);
 }

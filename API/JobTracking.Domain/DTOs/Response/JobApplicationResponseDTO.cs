@@ -8,4 +8,7 @@ public class JobApplicationResponseDTO
     public int UserId { get; set; }
     public int JobAdId { get; set; }
     public ApplicationStatusEnum Status { get; set; }
+    
+    public UserResponseDTO User { get; set; }
+    public JobAdResponseDTO JobAd { get; set; }
 }

@@ -36,7 +36,8 @@ public class JobApplicationController : Controller
     [HttpPost]
     public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<JobApplicationFilter> jobApplicationFilter)
     {
-        return Ok(await _jobApplicationService.GetFilteredJobApplications(jobApplicationFilter));
+        var result = await _jobApplicationService.GetFilteredJobApplications(jobApplicationFilter);
+        return Ok(result);
     }
 
     [HttpPost]

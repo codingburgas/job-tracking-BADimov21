@@ -1,15 +1,49 @@
-<div class="container mt-4">
-  <h3 class="mb-4">Профил</h3>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-lg rounded-4 border-0">
+        <div class="card-body px-4 py-5">
+          <h3 class="mb-4 text-center text-primary fw-bold">Профил на потребителя</h3>
 
-  <div *ngIf="user">
-    <p><strong>Име:</strong> {{ user.firstName }}</p>
-    <p><strong>Презиме:</strong> {{ user.middleName }}</p>
-    <p><strong>Фамилия:</strong> {{ user.lastName }}</p>
-    <p><strong>Потребителско име:</strong> {{ user.username }}</p>
-    <p><strong>Роля:</strong> {{ user.role === 1 ? 'Администратор' : 'Потребител' }}</p>
-  </div>
+          <div *ngIf="user; else noUser">
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-muted">Име</label>
+              <div class="form-control-plaintext fs-6">{{ user.firstName }}</div>
+            </div>
 
-  <div *ngIf="!user" class="text-danger">
-    Няма налична потребителска информация.
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-muted">Презиме</label>
+              <div class="form-control-plaintext fs-6">{{ user.middleName }}</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-muted">Фамилия</label>
+              <div class="form-control-plaintext fs-6">{{ user.lastName }}</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-muted">Потребителско име</label>
+              <div class="form-control-plaintext fs-6">{{ user.username }}</div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label fw-semibold text-muted">Роля</label>
+              <div class="form-control-plaintext">
+                <span class="badge px-3 py-2 rounded-pill"
+                      [ngClass]="user.role === 1 ? 'bg-gradient bg-info text-white' : 'bg-gradient bg-secondary text-white'">
+                  {{ user.role === 1 ? 'Администратор' : 'Потребител' }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #noUser>
+            <div class="alert alert-warning text-center">
+              Няма налична потребителска информация.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

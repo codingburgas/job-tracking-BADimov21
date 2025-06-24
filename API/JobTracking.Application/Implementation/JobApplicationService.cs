@@ -1,5 +1,6 @@
 ﻿using JobTracking.Application.Contracts.Base;
 using JobTracking.DataAccess.Data.Models;
+using JobTracking.Domain.DTOs;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
@@ -39,13 +40,12 @@ public class JobApplicationService : IJobApplicationService
             })
             .FirstOrDefaultAsync();
     }
-
-    public async Task<IQueryable<JobApplicationResponseDTO>> GetFilteredJobApplications(
-        BaseFilter<JobApplicationFilter> filter)
+    
+    public async Task<PagedResult<JobApplicationResponseDTO>> GetFilteredJobApplications(BaseFilter<JobApplicationFilter> filter)
     {
         IQueryable<JobApplication> query = Provider.Db.JobApplications;
 
-        JobApplicationFilter? jobApplicationFilter = filter.Filters;
+        var jobApplicationFilter = filter.Filters;
 
         if (jobApplicationFilter is not null)
         {
@@ -53,15 +53,49 @@ public class JobApplicationService : IJobApplicationService
             {
                 query = query.Where(j => j.Status == jobApplicationFilter.Status);
             }
+            if (jobApplicationFilter.UserId.HasValue)
+            {
+                query = query.Where(j => j.UserId == jobApplicationFilter.UserId.Value);
+            }
+            if (jobApplicationFilter.JobAdId.HasValue)
+            {
+                query = query.Where(j => j.JobAdId == jobApplicationFilter.JobAdId.Value);
+            }
         }
-        
-        query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
 
-        return query.Select(x => new JobApplicationResponseDTO()
+        var totalItems = await query.CountAsync();
+
+        var items = await query
+            .Skip(filter.PageSize * (filter.Page - 1))
+            .Take(filter.PageSize)
+            .Select(x => new JobApplicationResponseDTO
+            {
+                Id = x.Id,
+                Status = x.Status,
+                UserId = x.UserId,
+                JobAdId = x.JobAdId,
+                User = new UserResponseDTO()
+                {
+                    Id = x.User.Id,
+                    FirstName = x.User.FirstName,
+                    MiddleName = x.User.MiddleName,
+                    LastName = x.User.LastName,
+                    Username = x.User.Username,
+                },
+                JobAd = new JobAdResponseDTO()
+                {
+                    Id = x.JobAd.Id,
+                    Title = x.JobAd.Title,
+                    CompanyName = x.JobAd.CompanyName,
+                }
+            })
+            .ToListAsync();
+
+        return new PagedResult<JobApplicationResponseDTO>
         {
-            Id = x.Id,
-            Status = x.Status,
-        });
+            TotalItems = totalItems,
+            Items = items
+        };
     }
 
     public async Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto)

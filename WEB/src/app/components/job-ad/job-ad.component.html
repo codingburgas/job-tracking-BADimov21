@@ -1,47 +1,57 @@
-<div class="container mt-4">
-  <h2 class="mb-3">Обяви за работа</h2>
+<div class="container py-4">
+  <h2 class="text-center text-primary fw-semibold fs-3 mb-4">Обяви за работа</h2>
 
-  <div class="card p-3 mb-4">
-    <div class="row g-3">
-      <div class="col-md-3">
-        <input type="text" class="form-control" placeholder="Заглавие" [(ngModel)]="filters.title" />
-      </div>
-
-      <div class="col-md-3">
-        <input type="text" class="form-control" placeholder="Компания" [(ngModel)]="filters.companyName" />
-      </div>
-
-      <div class="col-md-3">
-        <select class="form-select" [(ngModel)]="filters.isOpen">
-          <option [ngValue]="null">Всички</option>
-          <option [ngValue]="true">Отворени</option>
-          <option [ngValue]="false">Затворени</option>
-        </select>
-      </div>
-
-      <div class="col-md-3">
-        <input type="date" class="form-control" [(ngModel)]="filters.publishedOn" />
-      </div>
-
-      <div class="col-12 mt-2 text-end">
-        <button class="btn btn-primary" (click)="applyFilters()">Приложи филтрите</button>
-      </div>
+  <div class="card shadow-sm border-0 mb-4 rounded-4">
+    <div class="card-header bg-white border-bottom-0 rounded-top-4">
+      <h5 class="mb-0 text-secondary fw-semibold fs-5">Филтриране</h5>
+    </div>
+    <div class="card-body small">
+      <form class="row gy-3 gx-3 align-items-end">
+        <div class="col-md-3">
+          <label class="form-label">Заглавие</label>
+          <input type="text" class="form-control form-control-sm" placeholder="Пример: Програмист" [(ngModel)]="filters.title" name="title" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Компания</label>
+          <input type="text" class="form-control form-control-sm" placeholder="Име на фирма" [(ngModel)]="filters.companyName" name="companyName" />
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Статус</label>
+          <select class="form-select form-select-sm" [(ngModel)]="filters.isOpen" name="isOpen">
+            <option [ngValue]="null">Всички</option>
+            <option [ngValue]="true">Отворени</option>
+            <option [ngValue]="false">Затворени</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Дата на публикуване</label>
+          <input type="date" class="form-control form-control-sm" [(ngModel)]="filters.publishedOn" name="publishedOn" />
+        </div>
+        <div class="col-12 text-end mt-2">
+          <button type="button" class="btn btn-sm btn-primary px-3 rounded-pill" (click)="applyFilters()">
+            <i class="bi bi-funnel-fill me-1"></i> Приложи филтрите
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div *ngIf="jobAds.length === 0">Няма налични обяви.</div>
+  <div *ngIf="jobAds.length === 0" class="alert alert-warning text-center small">
+    <i class="bi bi-info-circle me-1"></i> Няма налични обяви.
+  </div>
 
-  <div class="row" *ngIf="jobAds.length > 0">
-    <div class="col-md-6 mb-4" *ngFor="let ad of jobAds">
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">{{ ad.title }}</h5>
-          <p class="card-text">{{ ad.companyName }}</p>
-          <p class="card-text">{{ ad.description }}</p>
-          <p class="card-text">
+  <div class="row g-3" *ngIf="jobAds.length > 0">
+    <div class="col-md-6" *ngFor="let ad of jobAds">
+      <div class="card shadow-sm border-0 h-100 rounded-4">
+        <div class="card-body small">
+          <h6 class="card-title fw-bold text-dark mb-1">{{ ad.title }}</h6>
+          <p class="mb-1 text-muted">{{ ad.companyName }}</p>
+          <p class="mb-2">{{ ad.description }}</p>
+          <p class="mb-1 text-secondary">
             <strong>Публикувана на:</strong> {{ ad.publishedOn | date:'dd.MM.yyyy' }}
           </p>
-          <span [ngClass]="{ 'text-success': ad.isOpen, 'text-danger': !ad.isOpen }">
+          <span class="badge rounded-pill px-2 py-1"
+            [ngClass]="ad.isOpen ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'">
             {{ ad.isOpen ? 'Отворена' : 'Затворена' }}
           </span>
         </div>
@@ -49,17 +59,21 @@
     </div>
   </div>
 
-  <ul class="pagination justify-content-center" *ngIf="pages.length > 0">
-    <li class="page-item" [class.disabled]="currentPage === 1">
-      <a href="#" class="page-link" (click)="onPageClick($event, currentPage - 1)">Предишна</a>
-    </li>
+  <nav class="mt-4" *ngIf="pages.length > 0">
+    <ul class="pagination pagination-sm justify-content-center">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link rounded-pill" href="#" (click)="onPageClick($event, currentPage - 1)">Предишна</a>
+      </li>
 
-    <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
-      <a href="#" class="page-link" (click)="onPageClick($event, page)">{{ page }}</a>
-    </li>
+      <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+        <a class="page-link rounded-pill" href="#" (click)="onPageClick($event, page)">
+          {{ page }}
+        </a>
+      </li>
 
-    <li class="page-item" [class.disabled]="currentPage === totalPages">
-      <a href="#" class="page-link" (click)="onPageClick($event, currentPage + 1)">Следваща</a>
-    </li>
-  </ul>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link rounded-pill" href="#" (click)="onPageClick($event, currentPage + 1)">Следваща</a>
+      </li>
+    </ul>
+  </nav>
 </div>

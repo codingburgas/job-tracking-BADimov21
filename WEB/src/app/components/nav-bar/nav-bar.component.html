@@ -1,27 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-lg bg-white shadow-sm py-2 sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand d-flex align-items-center" routerLink="/">
-      <img src="assets/grindin_nobg.png" alt="Grindin' Logo" style="height: 40px; width: auto;" class="me-3" />
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand d-flex align-items-center fw-semibold text-primary fs-5" routerLink="/">
+      <img src="assets/grindin_nobg.png" alt="Grindin' Logo" style="height: 38px;" class="me-2" /> </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarScroll">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center small fw-medium">
         <li class="nav-item" *ngIf="authService.isAuthenticated()">
-          <a class="nav-link" routerLink="/profile" routerLinkActive="active">Профил</a>
+          <a class="nav-link px-3" routerLink="/profile" routerLinkActive="active">Профил</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/job-ads" routerLinkActive="active">Обяви за работа</a>
+          <a class="nav-link px-3" routerLink="/job-ads" routerLinkActive="active">Обяви за работа</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/job-applications" routerLinkActive="active">Моите кандидатури</a>
+          <a class="nav-link px-3" routerLink="/job-applications" routerLinkActive="active">Моите кандидатури</a>
         </li>
       </ul>
 
-      <div class="d-flex gap-2">
-        <button class="btn btn-outline-primary btn-sm" (click)="onLogout()">Отпишете се</button>
+      <div class="d-flex align-items-center">
+        <button class="btn btn-sm btn-outline-danger rounded-pill px-3" (click)="onLogout()">
+          <i class="bi bi-box-arrow-right me-1"></i> Отпишете се
+        </button>
       </div>
     </div>
   </div>

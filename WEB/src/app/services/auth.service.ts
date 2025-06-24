@@ -38,4 +38,14 @@ export class AuthService {
     const userJson = localStorage.getItem('user');
     return userJson ? JSON.parse(userJson) : null;
   }
+
+  getCurrentUserId(): string | null {
+    const user = this.getCurrentUser();
+    return user ? user.id : null;
+  }
+
+  getUserRole(): number | null {
+    const user = this.getCurrentUser();
+    return user ? user.role : null;
+  }
 }
