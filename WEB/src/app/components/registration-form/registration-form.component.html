@@ -27,6 +27,7 @@
             <label for="middleName" class="form-label">Презиме</label>
             <input type="text" id="middleName" formControlName="middleName" class="form-control" />
             <div *ngIf="registerForm.get('middleName')?.touched && registerForm.get('middleName')?.invalid" class="text-danger small">
+              <div *ngIf="registerForm.get('middleName')?.errors?.['required']">Презимето е задължително.</div>
               <div *ngIf="registerForm.get('middleName')?.errors?.['pattern']">Презимето трябва да съдържа само букви.</div>
               <div *ngIf="registerForm.get('middleName')?.errors?.['capitalLetter']">Презимето трябва да съдържа поне една главна буква.</div>
               <div *ngIf="registerForm.get('middleName')?.errors?.['minlength']">Презимето трябва да е поне 2 символа.</div>

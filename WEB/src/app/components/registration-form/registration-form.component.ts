@@ -31,7 +31,7 @@ export class RegistrationFormComponent {
     this.registerForm = this.fb.group(
       {
         firstName: ['', [Validators.required, this.nameValidator()]],
-        middleName: ['', [this.optionalNameValidator()]],
+        middleName: ['', [Validators.required, this.nameValidator()]],
         lastName: ['', [Validators.required, this.nameValidator()]],
         username: ['', [Validators.required, this.usernameValidator()]],
         password: ['', [Validators.required, this.passwordComplexityValidator()]],
@@ -119,8 +119,10 @@ export class RegistrationFormComponent {
       },
       error: (err) => {
         console.error('Registration error:', err);
-        if (err.status === 409) {
+        if (err.status === 409 || err.error?.message?.includes('already exists') || err.error?.message?.toLowerCase().includes('вече съществува')) {
           this.registrationError = 'Потребителското име вече съществува.';
+        } else if (err.status === 500) {
+          this.registrationError = 'Сървърна грешка. Моля, опитайте отново по-късно.';
         } else {
           this.registrationError = 'Възникна грешка при регистрацията.';
         }

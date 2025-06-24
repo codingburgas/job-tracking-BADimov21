@@ -5,9 +5,11 @@ import { RegistrationFormComponent } from './components/registration-form/regist
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/job-ads', pathMatch: 'full' },
+  { path: 'profile', component: ProfileComponent },
   { path: 'login-form', component: LoginFormComponent },
   { path: 'registration-form', component: RegistrationFormComponent },
   { path: 'job-ads', component: JobAdComponent, canActivate: [AuthGuard] },

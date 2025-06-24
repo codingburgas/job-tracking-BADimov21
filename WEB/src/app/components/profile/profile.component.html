@@ -1,0 +1,15 @@
+<div class="container mt-4">
+  <h3 class="mb-4">Профил</h3>
+
+  <div *ngIf="user">
+    <p><strong>Име:</strong> {{ user.firstName }}</p>
+    <p><strong>Презиме:</strong> {{ user.middleName }}</p>
+    <p><strong>Фамилия:</strong> {{ user.lastName }}</p>
+    <p><strong>Потребителско име:</strong> {{ user.username }}</p>
+    <p><strong>Роля:</strong> {{ user.role === 1 ? 'Администратор' : 'Потребител' }}</p>
+  </div>
+
+  <div *ngIf="!user" class="text-danger">
+    Няма налична потребителска информация.
+  </div>
+</div>

@@ -9,6 +9,9 @@
 
     <div class="collapse navbar-collapse" id="navbarScroll">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item" *ngIf="authService.isAuthenticated()">
+          <a class="nav-link" routerLink="/profile" routerLinkActive="active">Профил</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/job-ads" routerLinkActive="active">Обяви за работа</a>
         </li>

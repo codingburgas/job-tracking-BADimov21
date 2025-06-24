@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,6 +15,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
   }
 
   register(user: any): Observable<any> {
@@ -21,6 +23,19 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/User/Login`, { username, password });
+    return this.http.post<any>(`${this.apiUrl}/User/Login`, { username, password }).pipe(
+      tap(user => {
+        if (!user || !user.username) {
+          throw new Error('Invalid login response');
+        }
+
+        localStorage.setItem('user', JSON.stringify(user));
+      })
+    );
+  }
+
+  getCurrentUser(): any {
+    const userJson = localStorage.getItem('user');
+    return userJson ? JSON.parse(userJson) : null;
   }
 }
