@@ -1,4 +1,5 @@
 ﻿using JobTracking.Application.Contracts.Base;
+using JobTracking.Domain.DTOs;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
@@ -6,6 +7,7 @@ using JobTracking.Domain.Filters;
 using JobTracking.Domain.Filters.Base;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.API.Controllers;
 
@@ -54,7 +56,22 @@ public class JobAdController : Controller
     [HttpPost]
     public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<JobAdFilter> jobAdFilter)
     {
-        return Ok(await _jobAdService.GetFilteredJobAds(jobAdFilter));
+        var query = await _jobAdService.GetFilteredJobAds(jobAdFilter);
+
+        var totalCount = await query.CountAsync();
+
+        var items = await query
+            .Skip(jobAdFilter.PageSize * (jobAdFilter.Page - 1))
+            .Take(jobAdFilter.PageSize)
+            .ToListAsync();
+
+        var response = new PagedResult<JobAdResponseDTO>
+        {
+            TotalCount = totalCount,
+            Items = items
+        };
+
+        return Ok(response);
     }
     
     [HttpPost]

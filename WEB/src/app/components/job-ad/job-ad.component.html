@@ -1,10 +1,65 @@
-<div class="card border-primary mb-3" style="max-width: 18rem;">
-  <div class="card-header">Реклама на работа - Grindin'</div>
-  <div class="card-body text-primary">
-    <h5 class="card-title">Софтуерен инженер</h5>
-    <p class="card-text">Компания: HackIT</p>
-    <p class="card-text">Описание: Търсим софтуерен инженер. Ако има желаещи, моля, пишете ни за повече информация.</p>
-    <p class="card-text">Публикувано на: 09.06.2025</p>
-    <p class="card-text">Статус: Активна</p>
+<div class="container mt-4">
+  <h2 class="mb-3">Обяви за работа</h2>
+
+  <div class="card p-3 mb-4">
+    <div class="row g-3">
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Заглавие" [(ngModel)]="filters.title" />
+      </div>
+
+      <div class="col-md-3">
+        <input type="text" class="form-control" placeholder="Компания" [(ngModel)]="filters.companyName" />
+      </div>
+
+      <div class="col-md-3">
+        <select class="form-select" [(ngModel)]="filters.isOpen">
+          <option [ngValue]="null">Всички</option>
+          <option [ngValue]="true">Отворени</option>
+          <option [ngValue]="false">Затворени</option>
+        </select>
+      </div>
+
+      <div class="col-md-3">
+        <input type="date" class="form-control" [(ngModel)]="filters.publishedOn" />
+      </div>
+
+      <div class="col-12 mt-2 text-end">
+        <button class="btn btn-primary" (click)="applyFilters()">Приложи филтрите</button>
+      </div>
+    </div>
   </div>
+
+  <div *ngIf="jobAds.length === 0">Няма налични обяви.</div>
+
+  <div class="row" *ngIf="jobAds.length > 0">
+    <div class="col-md-6 mb-4" *ngFor="let ad of jobAds">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">{{ ad.title }}</h5>
+          <p class="card-text">{{ ad.companyName }}</p>
+          <p class="card-text">{{ ad.description }}</p>
+          <p class="card-text">
+            <strong>Публикувана на:</strong> {{ ad.publishedOn | date:'dd.MM.yyyy' }}
+          </p>
+          <span [ngClass]="{ 'text-success': ad.isOpen, 'text-danger': !ad.isOpen }">
+            {{ ad.isOpen ? 'Отворена' : 'Затворена' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ul class="pagination justify-content-center" *ngIf="pages.length > 0">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a href="#" class="page-link" (click)="onPageClick($event, currentPage - 1)">Предишна</a>
+    </li>
+
+    <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
+      <a href="#" class="page-link" (click)="onPageClick($event, page)">{{ page }}</a>
+    </li>
+
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a href="#" class="page-link" (click)="onPageClick($event, currentPage + 1)">Следваща</a>
+    </li>
+  </ul>
 </div>

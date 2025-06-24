@@ -110,40 +110,34 @@ public class JobAdService : IJobAdService
     {
         IQueryable<JobAd> query = Provider.Db.JobAds;
 
-        JobAdFilter? jobAdFilter = filter.Filters;
+        var jobAdFilter = filter.Filters;
 
         if (jobAdFilter is not null)
         {
-            if (!string.IsNullOrEmpty(jobAdFilter.Title))
-            {
-                query = query.Where(j => j.Title.Contains(jobAdFilter.Title));
-            }
+            var hasTitle = !string.IsNullOrWhiteSpace(jobAdFilter.Title);
+            var hasCompany = !string.IsNullOrWhiteSpace(jobAdFilter.CompanyName);
+            var hasPublishedOn = jobAdFilter.PublishedOn.HasValue;
+            var hasIsOpen = jobAdFilter.IsOpen.HasValue;
 
-            if (!string.IsNullOrEmpty(jobAdFilter.CompanyName))
+            if (hasTitle || hasCompany || hasPublishedOn || hasIsOpen)
             {
-                query = query.Where(j => j.CompanyName.Contains(jobAdFilter.CompanyName));
-            }
-
-            if (jobAdFilter.PublishedOn.HasValue)
-            {
-                query = query.Where(j => j.PublishedOn >= jobAdFilter.PublishedOn);
-            }
-
-            if (jobAdFilter.IsOpen.HasValue)
-            {
-                query = query.Where(j => j.IsOpen == jobAdFilter.IsOpen);
+                query = query.Where(j =>
+                    (hasTitle && j.Title.Contains(jobAdFilter.Title)) ||
+                    (hasCompany && j.CompanyName.Contains(jobAdFilter.CompanyName)) ||
+                    (hasPublishedOn && j.PublishedOn.Date == jobAdFilter.PublishedOn.Value.Date) ||
+                    (hasIsOpen && j.IsOpen == jobAdFilter.IsOpen)
+                );
             }
         }
         
-        query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
-
-        return query.Select(x => new JobAdResponseDTO()
+        return query.Select(x => new JobAdResponseDTO
         {
             Id = x.Id,
             Title = x.Title,
             CompanyName = x.CompanyName,
+            Description = x.Description,
             PublishedOn = x.PublishedOn,
-            IsOpen = x.IsOpen,
+            IsOpen = x.IsOpen
         });
     }
 }
