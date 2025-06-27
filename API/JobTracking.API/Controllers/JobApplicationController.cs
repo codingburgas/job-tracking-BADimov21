@@ -20,7 +20,7 @@ public class JobApplicationController : Controller
         _jobApplicationService = jobApplicationService;
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         return Ok(await _jobApplicationService.GetJobApplication(id));
@@ -43,8 +43,13 @@ public class JobApplicationController : Controller
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] JobApplicationCreateRequestDTO dto)
     {
+        if (await _jobApplicationService.HasUserAlreadyApplied(dto.JobAdId, dto.UserId))
+        {
+            return BadRequest(new { message = "User has already applied to this job." });
+        }
+
         var created = await _jobApplicationService.CreateJobApplication(dto);
-        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+        return Ok(created);
     }
 
     [HttpPut("{id}")]

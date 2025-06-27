@@ -15,4 +15,22 @@ export class JobApplicationService {
       filters
     });
   }
+
+  getJobApplicationById(id: number) {
+    return this.http.get(`${this.apiUrl}/JobApplication/GetById/${id}`);
+  }
+
+  updateJobApplication(dto: { id: number; status?: number }) {
+    return this.http.put(`${this.apiUrl}/JobApplication/Update/${dto.id}`, dto);
+  }
+
+  applyToJob(jobAdId: number, userId: number): Observable<any> {
+    const payload = {
+      jobAdId: jobAdId,
+      userId: userId,
+      status: 0
+    };
+
+    return this.http.post(`${this.apiUrl}/JobApplication/Add`, payload);
+  }
 }

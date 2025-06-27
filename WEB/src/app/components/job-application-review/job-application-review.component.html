@@ -1,0 +1,77 @@
+<div class="container py-4">
+  <h2 class="mb-4 text-center fs-3 text-primary fw-semibold">Преглед на кандидатура</h2>
+
+  <div *ngIf="application; else loading" class="card shadow-sm border-0 rounded-4">
+    <div class="card-body small">
+      <h5 class="card-title fw-bold text-dark mb-3">Кандидатура #{{ application.id }}</h5>
+
+      <p>
+        <strong>Име:</strong>
+        {{ application.user.firstName || '' }} {{ application.user.middleName || '' }} {{ application.user.lastName || '' }}
+      </p>
+
+      <p>
+        <strong>Потребител:</strong> {{ application.user.username }}
+        <span class="text-muted">(ID: {{ application.userId }})</span>
+      </p>
+
+      <p>
+        <strong>Роля:</strong>
+        <span class="badge rounded-pill px-2 py-1"
+          [ngClass]="application.user.role === 1 ? 'bg-danger-subtle text-danger fw-semibold' : 'bg-info-subtle text-dark fw-semibold'">
+          {{ application.user.role === 1 ? 'Администратор' : 'Потребител' }}
+        </span>
+      </p>
+
+      <p>
+        <strong>Обява:</strong> {{ application.jobAd.title }}<br />
+        <span class="text-muted">от {{ application.jobAd.companyName }} (ID: {{ application.jobAdId }})</span>
+      </p>
+
+      <p>
+        <strong>Статус:</strong>
+        <span class="badge rounded-pill px-2 py-1"
+          [ngClass]="{
+            'bg-warning text-dark': application.status === 0,
+            'bg-success text-white': application.status === 1,
+            'bg-secondary text-white': application.status === 2
+          }">
+          {{ application.status === 0 ? 'Подадена' : application.status === 1 ? 'Одобрена за интервю' : 'Отказана' }}
+        </span>
+        <span class="text-muted ms-2">Код: {{ application.status }}</span>
+      </p>
+
+      <hr class="my-4" />
+
+      <!-- Alerts -->
+      <div *ngIf="successMessage" class="alert alert-success mt-2 rounded-3" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>{{ successMessage }}
+      </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2 rounded-3" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+      </div>
+
+      <!-- Status form -->
+      <form (ngSubmit)="onStatusChange(selectedStatus)">
+        <div class="mb-3 mt-4">
+          <label for="status" class="form-label">Промени статуса</label>
+          <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-select">
+            <option [ngValue]="1">Одобри за интервю</option>
+            <option [ngValue]="2">Откажи</option>
+          </select>
+        </div>
+        <div class="text-end">
+          <button type="submit" class="btn btn-primary px-4 rounded-pill">
+            <i class="bi bi-save me-1"></i> Запази
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <div class="text-muted text-center">
+      <i class="bi bi-hourglass-split me-1"></i> Зареждане на кандидатурата...
+    </div>
+  </ng-template>
+</div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JobApplicationService } from '../../services/job-application.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-job-application',
@@ -12,6 +13,8 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./job-application.component.scss']
 })
 export class JobApplicationComponent implements OnInit {
+  userRole: number = 1;
+
   totalItems = 0;
   pageSize = 10;
   currentPage = 1;
@@ -48,9 +51,11 @@ export class JobApplicationComponent implements OnInit {
     jobAdId: null as number | null
   };
 
-  constructor(private jobApplicationService: JobApplicationService, private authService: AuthService) {}
+  constructor(private jobApplicationService: JobApplicationService, private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
+    const user = this.authService.getCurrentUser();
+    this.userRole = user.role;
     this.currentPage = 1;
     this.pageSize = 10;
     this.loadJobApplications(this.currentPage);
@@ -59,6 +64,10 @@ export class JobApplicationComponent implements OnInit {
   applyFilters(): void {
     this.currentPage = 1;
     this.loadJobApplications(this.currentPage);
+  }
+
+  goToReview(applicationId: number) {
+    this.router.navigate(['/job-application-review', applicationId]);
   }
 
   loadJobApplications(page: number) {
@@ -73,7 +82,9 @@ export class JobApplicationComponent implements OnInit {
     this.jobApplicationService
     .getJobApplications(this.currentPage, this.pageSize, filters)
     .subscribe(response => {
+      console.log('Raw response items:', response.items);
       this.jobApplications = response.items;
+      console.log('Loaded applications:', this.jobApplications); 
       this.totalItems = response.totalItems;
       this.totalPages = Math.ceil(this.totalItems / this.pageSize);
       this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);

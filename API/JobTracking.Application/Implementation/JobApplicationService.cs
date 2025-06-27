@@ -1,5 +1,6 @@
 ﻿using JobTracking.Application.Contracts.Base;
 using JobTracking.DataAccess.Data.Models;
+using JobTracking.DataAccess.Persistance;
 using JobTracking.Domain.DTOs;
 using JobTracking.Domain.DTOs.Request.Create;
 using JobTracking.Domain.DTOs.Request.Update;
@@ -27,19 +28,40 @@ public class JobApplicationService : IJobApplicationService
             .ToListAsync();
     }
     
-    public Task<JobApplicationResponseDTO?> GetJobApplication(int jobApplicationId)
+    public async Task<JobApplicationResponseDTO?> GetJobApplication(int jobApplicationId)
     {
-        return Provider.Db.JobApplications
+        return await Provider.Db.JobApplications
+            .Include(j => j.User)
+            .Include(j => j.JobAd)
             .Where(j => j.Id == jobApplicationId)
             .Select(j => new JobApplicationResponseDTO
             {
                 Id = j.Id,
                 UserId = j.UserId,
                 JobAdId = j.JobAdId,
-                Status = j.Status
+                Status = j.Status,
+                User = new UserResponseDTO
+                {
+                    Id = j.User.Id,
+                    FirstName = j.User.FirstName,
+                    MiddleName = j.User.MiddleName,
+                    LastName = j.User.LastName,
+                    Username = j.User.Username,
+                    Role = j.User.Role
+                },
+                JobAd = new JobAdResponseDTO
+                {
+                    Id = j.JobAd.Id,
+                    Title = j.JobAd.Title,
+                    CompanyName = j.JobAd.CompanyName,
+                    Description = j.JobAd.Description,
+                    PublishedOn = j.JobAd.PublishedOn,
+                    IsOpen = j.JobAd.IsOpen
+                }
             })
             .FirstOrDefaultAsync();
     }
+
     
     public async Task<PagedResult<JobApplicationResponseDTO>> GetFilteredJobApplications(BaseFilter<JobApplicationFilter> filter)
     {
@@ -81,6 +103,7 @@ public class JobApplicationService : IJobApplicationService
                     MiddleName = x.User.MiddleName,
                     LastName = x.User.LastName,
                     Username = x.User.Username,
+                    Role = x.User.Role,
                 },
                 JobAd = new JobAdResponseDTO()
                 {
@@ -97,9 +120,33 @@ public class JobApplicationService : IJobApplicationService
             Items = items
         };
     }
+    
+    public async Task<bool> HasUserAlreadyApplied(int jobId, int userId)
+    {
+        if (jobId <= 0 || userId <= 0)
+        {
+            throw new ArgumentException("Invalid jobId or userId");
+        }
+
+        if (Provider?.Db?.JobApplications is null)
+        {
+            throw new InvalidOperationException("Database context or JobApplications set is null");
+        }
+
+        return await Provider.Db.JobApplications
+            .AnyAsync(a => a.JobAdId == jobId && a.UserId == userId);
+    }
 
     public async Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto)
     {
+        var exists = await Provider.Db.JobApplications
+            .AnyAsync(a => a.UserId == dto.UserId && a.JobAdId == dto.JobAdId);
+
+        if (exists)
+        {
+            throw new InvalidOperationException("User has already applied to this job.");
+        }
+        
         var entity = new JobApplication
         {
             UserId = dto.UserId,
@@ -129,8 +176,14 @@ public class JobApplicationService : IJobApplicationService
         {
             return false;
         }
-
+        
         entity.Status = dto.Status;
+
+        if (dto.IsActive.HasValue)
+        {
+            entity.IsActive = dto.IsActive.Value;
+        }
+
         entity.UpdatedOn = DateTime.UtcNow;
         entity.UpdatedBy = "system";
 

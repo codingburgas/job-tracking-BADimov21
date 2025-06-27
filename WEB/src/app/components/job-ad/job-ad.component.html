@@ -1,10 +1,29 @@
 <div class="container py-4">
   <h2 class="text-center text-primary fw-semibold fs-3 mb-4">Обяви за работа</h2>
 
+  <!-- Alert Message -->
+  <div *ngIf="alertMessage" class="alert alert-dismissible fade show mt-2"
+       [ngClass]="{
+          'alert-success': alertType === 'success',
+          'alert-danger': alertType === 'danger',
+          'alert-warning': alertType === 'warning'
+       }"
+       role="alert">
+    <i class="bi bi-info-circle me-1"></i> {{ alertMessage }}
+    <button type="button" class="btn-close" (click)="alertMessage = null"></button>
+  </div>
+
+  <div *ngIf="userRole === 1" class="mb-4">
+    <button class="btn btn-primary" (click)="onAddJobAd()">
+      + Добави обява
+    </button>
+  </div>
+
   <div class="card shadow-sm border-0 mb-4 rounded-4">
     <div class="card-header bg-white border-bottom-0 rounded-top-4">
       <h5 class="mb-0 text-secondary fw-semibold fs-5">Филтриране</h5>
     </div>
+
     <div class="card-body small">
       <form class="row gy-3 gx-3 align-items-end">
         <div class="col-md-3">
@@ -52,8 +71,33 @@
           </p>
           <span class="badge rounded-pill px-2 py-1"
             [ngClass]="ad.isOpen ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'">
-            {{ ad.isOpen ? 'Отворена' : 'Затворена' }}
+            {{ ad.isOpen ? 'Активна' : 'Неактивна' }}
           </span>
+
+          <div *ngIf="userRole === 1" class="mt-3 d-flex gap-2">
+            <button class="btn btn-sm btn-outline-primary rounded-pill px-3" (click)="onEditJobAd(ad)">
+              <i class="bi bi-pencil-square me-1"></i> Редактирай
+            </button>
+            <button
+              class="btn btn-sm btn-outline-danger rounded-pill px-3"
+              (click)="openDeleteModal(ad.id)"
+              [disabled]="isDeleting && deletingJobAdId === ad.id"
+            >
+              <i class="bi bi-trash me-1"></i>
+              <span *ngIf="isDeleting && deletingJobAdId === ad.id" class="spinner-border spinner-border-sm"></span>
+              <span *ngIf="!(isDeleting && deletingJobAdId === ad.id)">Изтрий</span>
+            </button>
+          </div>
+
+          <div *ngIf="userRole === 0 && ad.isOpen" class="mt-3">
+            <button class="btn btn-sm btn-primary rounded-pill px-3"
+                    (click)="onApply(ad)"
+                    [disabled]="isApplied(ad.id) || applyingJobId === ad.id">
+              <i *ngIf="applyingJobId !== ad.id" class="bi bi-send me-1"></i>
+              <span *ngIf="applyingJobId === ad.id" class="spinner-border spinner-border-sm me-1"></span>
+              Кандидатствай
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -76,4 +120,25 @@
       </li>
     </ul>
   </nav>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="deleteConfirmModal" aria-labelledby="deleteConfirmLabel" aria-hidden="true" [ngClass]="{'show d-block': showDeleteModal}" [style.backgroundColor]="showDeleteModal ? 'rgba(0,0,0,0.5)' : 'transparent'">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content rounded-4">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmLabel">Потвърждение за изтриване</h5>
+          <button type="button" class="btn-close" (click)="closeDeleteModal()" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Сигурни ли сте, че искате да изтриете тази обява?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary rounded-pill" (click)="closeDeleteModal()">Отказ</button>
+          <button type="button" class="btn btn-danger rounded-pill" (click)="confirmDelete()" [disabled]="isDeleting">
+            <span *ngIf="isDeleting" class="spinner-border spinner-border-sm me-2"></span> Изтрий
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

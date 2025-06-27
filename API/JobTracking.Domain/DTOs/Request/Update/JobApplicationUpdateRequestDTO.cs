@@ -11,5 +11,5 @@ public class JobApplicationUpdateRequestDTO
     [Required]
     public ApplicationStatusEnum Status { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 }

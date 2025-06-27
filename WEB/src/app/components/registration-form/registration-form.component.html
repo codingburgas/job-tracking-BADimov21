@@ -2,10 +2,22 @@
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5">
       <div class="card shadow rounded-4 border-0 p-4">
+
         <!-- Logo and title -->
         <div class="text-center mb-4">
           <img src="assets/grindin_nobg.png" alt="Grindin' Logo" style="height: 60px" />
           <h4 class="mt-3 fw-bold">Регистрация</h4>
+        </div>
+
+        <!-- Alerts -->
+        <div *ngIf="registrationSuccess" class="alert alert-success text-center" role="alert">
+          {{ registrationSuccess }}
+        </div>
+        <div *ngIf="registrationError" class="alert alert-danger text-center" role="alert">
+          {{ registrationError }}
+        </div>
+        <div *ngIf="registerForm.invalid && registerForm.touched" class="alert alert-warning text-center">
+          Моля, попълнете всички задължителни полета коректно.
         </div>
 
         <!-- Registration Form -->
@@ -19,6 +31,7 @@
               <div *ngIf="registerForm.get('firstName')?.errors?.['pattern']">Името трябва да съдържа само букви.</div>
               <div *ngIf="registerForm.get('firstName')?.errors?.['capitalLetter']">Името трябва да съдържа поне една главна буква.</div>
               <div *ngIf="registerForm.get('firstName')?.errors?.['minlength']">Името трябва да е поне 2 символа.</div>
+              <div *ngIf="registerForm.get('firstName')?.errors?.['maxlength']" class="text-danger small"> Максимална дължина: 64 символа.</div>
             </div>
           </div>
 
@@ -27,10 +40,10 @@
             <label for="middleName" class="form-label">Презиме</label>
             <input type="text" id="middleName" formControlName="middleName" class="form-control" />
             <div *ngIf="registerForm.get('middleName')?.touched && registerForm.get('middleName')?.invalid" class="text-danger small">
-              <div *ngIf="registerForm.get('middleName')?.errors?.['required']">Презимето е задължително.</div>
               <div *ngIf="registerForm.get('middleName')?.errors?.['pattern']">Презимето трябва да съдържа само букви.</div>
               <div *ngIf="registerForm.get('middleName')?.errors?.['capitalLetter']">Презимето трябва да съдържа поне една главна буква.</div>
               <div *ngIf="registerForm.get('middleName')?.errors?.['minlength']">Презимето трябва да е поне 2 символа.</div>
+              <div *ngIf="registerForm.get('middleName')?.errors?.['maxlength']" class="text-danger small"> Максимална дължина: 64 символа.</div>
             </div>
           </div>
 
@@ -43,6 +56,7 @@
               <div *ngIf="registerForm.get('lastName')?.errors?.['pattern']">Фамилията трябва да съдържа само букви.</div>
               <div *ngIf="registerForm.get('lastName')?.errors?.['capitalLetter']">Фамилията трябва да съдържа поне една главна буква.</div>
               <div *ngIf="registerForm.get('lastName')?.errors?.['minlength']">Фамилията трябва да е поне 2 символа.</div>
+              <div *ngIf="registerForm.get('lastName')?.errors?.['maxlength']" class="text-danger small"> Максимална дължина: 64 символа.</div>
             </div>
           </div>
 
@@ -53,46 +67,30 @@
             <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid" class="text-danger small">
               <div *ngIf="registerForm.get('username')?.errors?.['required']">Потребителското име е задължително.</div>
               <div *ngIf="registerForm.get('username')?.errors?.['minlength']">Минимална дължина: 3 символа.</div>
+              <div *ngIf="registerForm.get('username')?.errors?.['maxlength']" class="text-danger small"> Максимална дължина: 32 символа.</div>
             </div>
           </div>
 
           <!-- Password -->
           <div class="mb-3">
             <label for="password" class="form-label">Парола</label>
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              id="password"
-              formControlName="password"
-              class="form-control"
-            />
+            <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password" class="form-control" />
             <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger small">
               <div *ngIf="registerForm.get('password')?.errors?.['required']">Паролата е задължителна.</div>
               <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Минимална дължина: 8 символа.</div>
               <div *ngIf="registerForm.get('password')?.errors?.['uppercase']">Трябва да съдържа главна буква.</div>
               <div *ngIf="registerForm.get('password')?.errors?.['lowercase']">Трябва да съдържа малка буква.</div>
               <div *ngIf="registerForm.get('password')?.errors?.['number']">Трябва да съдържа число.</div>
-              <div *ngIf="registerForm.get('password')?.errors?.['specialChar']">
-                Трябва да съдържа специален символ (!, &#64;, #, $, %, ^, &, *, ~, ?).
-              </div>
+              <div *ngIf="registerForm.get('password')?.errors?.['specialChar']">Трябва да съдържа специален символ (!, &#64;, #, $, %, ^, &, *, ~, ?).</div>
+              <div *ngIf="registerForm.get('password')?.errors?.['maxlength']" class="text-danger small"> Максимална дължина: 128 символа.</div>
             </div>
           </div>
 
           <!-- Confirm Password -->
           <div class="mb-3">
             <label for="confirmPassword" class="form-label">Потвърдете паролата</label>
-            <input
-              [type]="showPassword ? 'text' : 'password'"
-              id="confirmPassword"
-              formControlName="confirmPassword"
-              class="form-control"
-            />
-            <div
-              *ngIf="
-                registerForm.get('confirmPassword')?.touched &&
-                registerForm.get('confirmPassword')?.invalid
-              "
-              class="text-danger small"
-            >
+            <input [type]="showPassword ? 'text' : 'password'" id="confirmPassword" formControlName="confirmPassword" class="form-control" />
+            <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="text-danger small">
               <div *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Това поле е задължително.</div>
             </div>
           </div>
@@ -109,14 +107,9 @@
           </div>
 
           <!-- Submit Button -->
-          <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="registerForm.invalid">
+          <button type="submit" class="btn btn-primary w-100 mb-3" [disabled]="registerForm.invalid || isSubmitting">
             Регистрирайте се
           </button>
-
-          <!-- Backend Error -->
-          <div *ngIf="registrationError" class="alert alert-danger text-center">
-            {{ registrationError }}
-          </div>
 
           <!-- Login Link -->
           <div class="text-center">

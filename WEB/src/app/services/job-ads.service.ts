@@ -15,4 +15,20 @@ export class JobAdsService {
       filters
     });
   }
+
+  createJobAd(jobAd: any) {
+    return this.http.post(`${this.apiUrl}/JobAd/Add`, jobAd);
+  }
+
+  getJobAdById(id: number) {
+    return this.http.get(`${this.apiUrl}/JobAd/GetById/${id}`);
+  }
+
+  updateJobAd(id: number, jobAd: any) {
+    return this.http.put(`${this.apiUrl}/JobAd/Update/${id}`, jobAd);
+  }
+
+  deleteJobAd(adId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/JobAd/Delete/${adId}`);
+  }
 }

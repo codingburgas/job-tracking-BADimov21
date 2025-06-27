@@ -12,10 +12,10 @@ public interface IJobApplicationService
 {
     public Task<List<JobApplication>> GetAllJobApplications(int page, int pageCount);
     public Task<JobApplicationResponseDTO?> GetJobApplication(int jobApplicationId);
+    public Task<bool> HasUserAlreadyApplied(int jobId, int userId);
     public Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto);
     public Task<bool> UpdateJobApplication(JobApplicationUpdateRequestDTO dto);
     public Task<bool> DeleteJobApplication(int id);
-
     public Task<PagedResult<JobApplicationResponseDTO>> GetFilteredJobApplications(
         BaseFilter<JobApplicationFilter> filter);
 }

@@ -73,18 +73,42 @@ public class JobAdService : IJobAdService
     public async Task<bool> UpdateJobAd(JobAdUpdateRequestDTO dto)
     {
         var entity = await Provider.Db.JobAds.FindAsync(dto.Id);
-        
+
         if (entity is null)
         {
             return false;
         }
 
-        entity.Title = dto.Title;
-        entity.CompanyName = dto.CompanyName;
-        entity.Description = dto.Description;
-        entity.PublishedOn = dto.PublishedOn;
-        entity.IsOpen = dto.IsOpen;
-        entity.IsActive = dto.IsActive;
+        if (!string.IsNullOrWhiteSpace(dto.Title))
+        {
+            entity.Title = dto.Title;
+        }
+
+        if (!string.IsNullOrWhiteSpace(dto.CompanyName))
+        {
+            entity.CompanyName = dto.CompanyName;
+        }
+
+        if (!string.IsNullOrWhiteSpace(dto.Description))
+        {
+            entity.Description = dto.Description;
+        }
+
+        if (dto.PublishedOn.HasValue)
+        {
+            entity.PublishedOn = dto.PublishedOn.Value;
+        }
+
+        if (dto.IsOpen.HasValue)
+        {
+            entity.IsOpen = dto.IsOpen.Value;
+        }
+
+        if (dto.IsActive.HasValue)
+        {
+            entity.IsActive = dto.IsActive.Value;
+        }
+
         entity.UpdatedOn = DateTime.UtcNow;
         entity.UpdatedBy = "system";
 

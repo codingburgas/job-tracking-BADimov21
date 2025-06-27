@@ -11,7 +11,13 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
 })
 export class NavBarComponent {
+  userRole: number | null = null;
+
   constructor(public authService: AuthService, private router: Router) {}
+
+  ngOnInit() {
+    this.userRole = this.authService.getUserRole();
+  }
 
   onLogout() {
     this.authService.logout();

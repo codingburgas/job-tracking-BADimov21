@@ -17,7 +17,9 @@
           <a class="nav-link px-3" routerLink="/job-ads" routerLinkActive="active">Обяви за работа</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link px-3" routerLink="/job-applications" routerLinkActive="active">Моите кандидатури</a>
+          <a class="nav-link px-3" routerLink="/job-applications" routerLinkActive="active">
+            {{ userRole === 1 ? 'Кандидатури' : 'Моите кандидатури' }}
+          </a>
         </li>
       </ul>
 
