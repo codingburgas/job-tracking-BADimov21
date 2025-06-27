@@ -1,16 +1,16 @@
 import { RouterModule, Routes } from '@angular/router';
 import { JobAdComponent } from './components/job-ad/job-ad.component';
 import { JobApplicationComponent } from './components/job-application/job-application.component';
-import { RegistrationFormComponent } from './components/registration-form/registration-form.component';
-import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegistrationFormComponent } from './components/authentication/registration-form/registration-form.component';
+import { LoginFormComponent } from './components/authentication/login-form/login-form.component';
 import { AppComponent } from './app.component';
 import { AuthGuard } from './guards/auth.guard';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/shared/profile/profile.component';
 import { CreateJobAdComponent } from './components/create-job-ad/create-job-ad.component';
 import { EditJobAdComponent } from './components/edit-job-ad/edit-job-ad.component';
 import { JobApplicationReviewComponent } from './components/job-application-review/job-application-review.component';
 import { AdminGuard } from './guards/admin.guard';
-import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { UnauthorizedComponent } from './components/authentication/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/job-ads', pathMatch: 'full' },

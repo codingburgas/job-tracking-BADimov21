@@ -46,17 +46,13 @@ namespace JobTracking.API
  
         public static void AddCors(this WebApplicationBuilder builder)
         {
-            //builder.Services.AddCors(options =>
-            //{
-            //    options.AddDefaultPolicy(
-            //        config =>
-            //        {
-            //            config.WithOrigins("http://localhost:4200", "https://localhost:7184")
-            //                .AllowAnyHeader()
-            //                .WithMethods(HttpMethod.Get.Method, HttpMethod.Post.Method, HttpMethod.Put.Method,
-            //                    HttpMethod.Delete.Method);
-            //        });
-            //});
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularClient",
+                    policy => policy.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+            });
         }
     }
 }
