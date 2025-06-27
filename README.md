@@ -1,4 +1,4 @@
-<h1 align="center"> 11 Grade - Production Practice (2025) </h1>
+<h1 align="center"> 11 Grade - Production Practice (2024 / 2025) </h1>
     
   <h4 align="center"> I am Bozhidar Dimov and I would like to show you my application: </h4>
     <p align="center">    
@@ -119,7 +119,122 @@
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
 
 <h2 id="installation">Installation (to run the source code)</h2>
-<strong>Installation is to be added soon.</strong>
+
+## ⚙️ Prerequisites
+
+Make sure the following software is installed on your system:
+
+### 🧰 System Tools
+
+- [Git](https://git-scm.com/)
+- [SQL Server (Express or Developer)](https://www.microsoft.com/en-us/sql-server/sql-server-downloads)
+- [SQL Server Management Studio (SSMS)](https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms)
+
+### 💻 Backend
+
+- [.NET 8 SDK](https://dotnet.microsoft.com/en-us/download)
+- Entity Framework Core tools:
+  ```bash
+  dotnet tool install --global dotnet-ef
+- Required EF Core NuGet packages (already in the project, but install if needed):
+  ```bash
+    dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+    dotnet add package Microsoft.EntityFrameworkCore.Design
+  ```
+
+### 🌐 Frontend
+
+- [Node.js (LTS version)](https://nodejs.org/)
+- Angular CLI (install globally):
+
+```bash
+npm install -g @angular/cli
+```
+
+---
+
+## 📁 Clone the Repository
+
+```bash
+git clone https://github.com/codingburgas/job-tracking-BADimov21.git
+cd job-tracking-BADimov21
+```
+
+---
+
+## 🗄️ Backend Setup (ASP.NET Core)
+
+1. Navigate to the backend project folder:
+
+```bash
+cd JobTracking.API
+```
+
+2. After you install MSSQL server, connect to your local instance with Windows authentication:
+```sql
+(localdb)\MSSQLLocalDb
+```
+
+3. Create the database manually in SSMS or run the SQL command:
+
+```sql
+CREATE DATABASE JobTracking;
+```
+
+
+4. Apply migrations and generate tables:
+
+```bash
+dotnet ef database update
+```
+
+5. Run the backend server:
+
+```bash
+dotnet run
+```
+
+The API should now be running at: `https://localhost:5230`
+
+---
+
+## 🌐 Frontend Setup (Angular)
+
+1. Open a new terminal and navigate to the Angular project folder:
+
+```bash
+cd ../JobTracking.WEB
+```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the frontend server:
+
+```bash
+ng serve
+```
+
+The app will now be accessible at: `http://localhost:4200`
+
+---
+
+## 🔐 Admin Setup
+
+- Admin users must be manually added to the database.
+- Set their role to `1` in the `Users` table.
+- Only admins have access to job ad and application management.
+
+---
+
+## 📌 Notes
+
+- Role-based authentication and route protection are implemented on both frontend and backend.
+- Error handling for bad requests and server issues is implemented with alerts and messages.
+
 <br>
 <p align="center">If any problems occur during the installation, feel free to contact the creator of the application "<strong>Grindin'</strong>" for assistance and guidance by the enclosed email address <a href="#contributors">here</a>.</p>
 
