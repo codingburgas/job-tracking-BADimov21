@@ -177,7 +177,7 @@ npm install -g @angular/cli
 ## 📁 Clone the Repository
 
 ```bash
-git clone https://github.com/codingburgas/job-tracking-BADimov21.git
+git clone "https://github.com/codingburgas/job-tracking-BADimov21.git"
 cd job-tracking-BADimov21
 ```
 
