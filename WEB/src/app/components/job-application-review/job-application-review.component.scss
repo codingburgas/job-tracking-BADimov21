@@ -1,0 +1,111 @@
+// Match .card-body styles
+.card-body {
+  font-size: 0.9rem;
+  color: #343a40; // match .card-body from applications page
+
+  h5.card-title,
+  h6.card-title {
+    color: #212529; // darker than primary, matches applications page
+    font-weight: 600;
+  }
+
+  p {
+    margin-bottom: 0.6rem;
+
+    strong {
+      color: #495057;
+    }
+  }
+
+  .badge {
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+
+    &.bg-warning {
+      background-color: #fff3cd !important;
+      color: #664d03 !important;
+    }
+
+    &.bg-success {
+      background-color: #198754 !important;
+      color: #fff !important;
+    }
+
+    &.bg-secondary {
+      background-color: #6c757d !important;
+      color: #fff !important;
+    }
+
+    &.bg-danger-subtle {
+      background-color: #f8d7da !important;
+      color: #842029 !important;
+    }
+
+    &.bg-info-subtle {
+      background-color: #cff4fc !important;
+      color: #055160 !important;
+    }
+  }
+}
+
+// Match alert style
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+
+  i, svg {
+    font-size: 1.2rem;
+  }
+}
+
+// Match label/input styling
+.form-label {
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.875rem;
+}
+
+.form-select {
+  max-width: 200px;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
+
+  &:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+  }
+}
+
+// Button matching (optional if using Bootstrap)
+button.btn-primary,
+button.btn-outline-primary {
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 50px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0d6efd;
+    color: white;
+  }
+}
+
+// Divider
+hr {
+  border-top: 1px solid #dee2e6;
+  margin: 1.5rem 0;
+}
+
+// Match muted italic
+.text-muted.fst-italic {
+  font-style: italic;
+  font-size: 0.85rem;
+}

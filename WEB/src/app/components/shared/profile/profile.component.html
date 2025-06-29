@@ -1,36 +1,39 @@
-<div class="container py-5">
+<div class="container py-5 profile-page animate-fadein">
   <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
-      <div class="card shadow-lg rounded-4 border-0">
-        <div class="card-body px-4 py-5">
-          <h3 class="mb-4 text-center text-primary fw-bold">Профил на потребителя</h3>
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-body p-5">
+          <h3 class="mb-4 text-center text-primary fw-bold">
+            <i class="bi bi-person-circle me-2"></i>Профил на потребителя
+          </h3>
 
           <div *ngIf="user; else noUser">
-            <div class="mb-3">
-              <label class="form-label fw-semibold text-muted">Име</label>
-              <div class="form-control-plaintext fs-6">{{ user.firstName }}</div>
+            <div class="mb-4">
+              <label class="form-label text-muted fw-semibold">Име</label>
+              <div class="form-control-plaintext fs-5">{{ user.firstName }}</div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-semibold text-muted">Презиме</label>
-              <div class="form-control-plaintext fs-6">{{ user.middleName }}</div>
+            <div class="mb-4">
+              <label class="form-label text-muted fw-semibold">Презиме</label>
+              <div class="form-control-plaintext fs-5">{{ user.middleName }}</div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-semibold text-muted">Фамилия</label>
-              <div class="form-control-plaintext fs-6">{{ user.lastName }}</div>
+            <div class="mb-4">
+              <label class="form-label text-muted fw-semibold">Фамилия</label>
+              <div class="form-control-plaintext fs-5">{{ user.lastName }}</div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-semibold text-muted">Потребителско име</label>
-              <div class="form-control-plaintext fs-6">{{ user.username }}</div>
+            <div class="mb-4">
+              <label class="form-label text-muted fw-semibold">Потребителско име</label>
+              <div class="form-control-plaintext fs-5">{{ user.username }}</div>
             </div>
 
-            <div class="mb-3">
-              <label class="form-label fw-semibold text-muted">Роля</label>
-              <div class="form-control-plaintext">
-                <span class="badge px-3 py-2 rounded-pill"
-                      [ngClass]="user.role === 1 ? 'bg-gradient bg-info text-white' : 'bg-gradient bg-secondary text-white'">
+            <div class="mb-2">
+              <label class="form-label text-muted fw-semibold">Роля</label>
+              <div>
+                <span class="badge rounded-pill px-3 py-2 fs-6"
+                      [ngClass]="user.role === 1 ? 'bg-primary' : 'bg-secondary'">
+                  <i class="bi" [ngClass]="user.role === 1 ? 'bi-shield-lock' : 'bi-person'"></i>
                   {{ user.role === 1 ? 'Администратор' : 'Потребител' }}
                 </span>
               </div>
@@ -38,8 +41,8 @@
           </div>
 
           <ng-template #noUser>
-            <div class="alert alert-warning text-center">
-              Няма налична потребителска информация.
+            <div class="alert alert-warning text-center mt-4">
+              <i class="bi bi-exclamation-circle-fill me-1"></i>Няма налична потребителска информация.
             </div>
           </ng-template>
         </div>

@@ -25,7 +25,7 @@
 
       <p>
         <strong>Обява:</strong> {{ application.jobAd.title }}<br />
-        <span class="text-muted">от {{ application.jobAd.companyName }} (ID: {{ application.jobAdId }})</span>
+        <span class="text-muted fst-italic">от {{ application.jobAd.companyName }} (ID: {{ application.jobAdId }})</span>
       </p>
 
       <p>
@@ -38,23 +38,25 @@
           }">
           {{ application.status === 0 ? 'Подадена' : application.status === 1 ? 'Одобрена за интервю' : 'Отказана' }}
         </span>
-        <span class="text-muted ms-2">Код: {{ application.status }}</span>
+        <span class="text-muted ms-2 fst-italic">Код: {{ application.status }}</span>
       </p>
 
       <hr class="my-4" />
 
       <!-- Alerts -->
-      <div *ngIf="successMessage" class="alert alert-success mt-2 rounded-3" role="alert">
-        <i class="bi bi-check-circle-fill me-2"></i>{{ successMessage }}
+      <div *ngIf="successMessage" class="alert alert-success mt-2 rounded-3 d-flex align-items-center" role="alert">
+        <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+        <span>{{ successMessage }}</span>
       </div>
-      <div *ngIf="errorMessage" class="alert alert-danger mt-2 rounded-3" role="alert">
-        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ errorMessage }}
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2 rounded-3 d-flex align-items-center" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+        <span>{{ errorMessage }}</span>
       </div>
 
       <!-- Status form -->
       <form (ngSubmit)="onStatusChange(selectedStatus)">
         <div class="mb-3 mt-4">
-          <label for="status" class="form-label">Промени статуса</label>
+          <label for="status" class="form-label fw-semibold">Промени статуса</label>
           <select [(ngModel)]="selectedStatus" name="status" id="status" class="form-select">
             <option [ngValue]="1">Одобри за интервю</option>
             <option [ngValue]="2">Откажи</option>
@@ -70,8 +72,8 @@
   </div>
 
   <ng-template #loading>
-    <div class="text-muted text-center">
-      <i class="bi bi-hourglass-split me-1"></i> Зареждане на кандидатурата...
+    <div class="text-muted text-center py-5">
+      <i class="bi bi-hourglass-split me-1 fs-4"></i> Зареждане на кандидатурата...
     </div>
   </ng-template>
 </div>

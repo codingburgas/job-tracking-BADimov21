@@ -11,7 +11,7 @@
         <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
           <div class="mb-3">
             <label for="username" class="form-label">Потребителско име</label>
-            <input type="text" id="username" formControlName="username" class="form-control" required>
+            <input id="username" type="text" formControlName="username" class="form-control" required>
           </div>
 
           <div class="mb-3">
@@ -20,18 +20,13 @@
           </div>
 
           <div class="form-check mb-4">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="showPassword"
-              (change)="toggleShowPassword()"
-            >
-            <label class="form-check-label" for="showPassword">
-              Показване на паролата
-            </label>
+            <input class="form-check-input" type="checkbox" id="showPassword" (change)="toggleShowPassword()">
+            <label class="form-check-label" for="showPassword">Показване на паролата</label>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100 mb-3">Вход</button>
+          <button type="submit" class="btn btn-primary w-100 mb-3 rounded-pill">
+            Вход
+          </button>
 
           <div *ngIf="loginError" class="alert alert-danger text-center">
             Грешно потребителско име или парола
@@ -43,6 +38,7 @@
             </a>
           </div>
         </form>
+
       </div>
     </div>
   </div>

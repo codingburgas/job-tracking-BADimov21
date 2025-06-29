@@ -40,7 +40,7 @@ export class LoginFormComponent {
           console.log('Login success', response);
           this.loginError = false;
           localStorage.setItem('authToken', response.token);
-          this.router.navigate(['/job-applications']);
+          this.router.navigate(['home']);
         },
         error: (err) => {
           console.error('Login error', err);

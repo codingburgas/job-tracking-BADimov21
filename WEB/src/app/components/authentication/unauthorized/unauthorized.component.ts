@@ -11,6 +11,6 @@ export class UnauthorizedComponent {
   constructor(private router: Router) {}
 
   goBack() {
-    this.router.navigate(['/job-ads']);
+    this.router.navigate(['home']);
   }
 }

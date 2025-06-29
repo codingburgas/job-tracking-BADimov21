@@ -11,13 +11,15 @@ import { EditJobAdComponent } from './components/edit-job-ad/edit-job-ad.compone
 import { JobApplicationReviewComponent } from './components/job-application-review/job-application-review.component';
 import { AdminGuard } from './guards/admin.guard';
 import { UnauthorizedComponent } from './components/authentication/unauthorized/unauthorized.component';
+import { HomeComponent } from './components/home/home.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/job-ads', pathMatch: 'full' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login-form', component: LoginFormComponent },
   { path: 'registration-form', component: RegistrationFormComponent },
   { path: 'unauthorized', component: UnauthorizedComponent },
 
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'job-ads', component: JobAdComponent, canActivate: [AuthGuard] },
   { path: 'job-applications', component: JobApplicationComponent, canActivate: [AuthGuard] },
