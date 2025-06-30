@@ -12,20 +12,22 @@ import { JobAdsService } from '../../services/job-ads.service';
   standalone: true
 })
 export class CreateJobAdComponent {
+  // Model for the job ad form, with default values
   jobAd = {
     title: '',
     companyName: '',
     description: '',
-    publishedOn: new Date().toISOString().split('T')[0],
+    publishedOn: new Date().toISOString().split('T')[0], // today's date in yyyy-MM-dd format
     isOpen: true,
   };
 
-  alertMessage: string | null = null;
-  alertType: 'success' | 'danger' | null = null;
-  isSubmitting = false;
+  alertMessage: string | null = null;  // Alert message text
+  alertType: 'success' | 'danger' | null = null;  // Alert type for styling
+  isSubmitting = false;  // Tracks if form submission is in progress
 
   constructor(private jobAdsService: JobAdsService, private router: Router) {}
 
+  // Display alert message for 4 seconds
   showAlert(message: string, type: 'success' | 'danger') {
     this.alertMessage = message;
     this.alertType = type;
@@ -35,9 +37,10 @@ export class CreateJobAdComponent {
     }, 4000);
   }
 
+  // Handle form submission
   onSubmit() {
     if (this.isSubmitting) {
-      return;
+      return;  // Prevent duplicate submissions
     }
     
     this.isSubmitting = true;
@@ -46,7 +49,7 @@ export class CreateJobAdComponent {
       next: () => {
         this.showAlert('Обявата беше успешно добавена.', 'success');
         setTimeout(() => {
-          this.router.navigate(['/job-ads']);
+          this.router.navigate(['/job-ads']);  // Redirect after success
         }, 1500);
       },
       error: (err) => {

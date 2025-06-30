@@ -26,10 +26,12 @@ export class EditJobAdComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // Extract job ad ID from route parameters
     this.jobAdId = +this.route.snapshot.paramMap.get('id')!;
     this.loadJobAd();
   }
 
+  // Load job ad data from the server
   loadJobAd() {
     this.jobAdsService.getJobAdById(this.jobAdId).subscribe({
       next: (data) => {
@@ -39,16 +41,16 @@ export class EditJobAdComponent implements OnInit {
       error: (err) => {
         console.error(err);
         this.errorMessage = 'Обявата не беше намерена.';
+        // Redirect back to list after 3 seconds
         setTimeout(() => this.router.navigate(['/job-ads']), 3000);
       }
     });
   }
 
+  // Handle form submission for updating the job ad
   onSubmit() {
-    if (!this.jobAd) {
-      return;
-    }
-    
+    if (!this.jobAd) return;
+
     this.isSaving = true;
     this.successMessage = null;
     this.errorMessage = null;
@@ -58,6 +60,7 @@ export class EditJobAdComponent implements OnInit {
         this.successMessage = 'Обявата беше редактирана успешно.';
         this.isSaving = false;
 
+        // Navigate back to job ads list after 2 seconds
         setTimeout(() => this.router.navigate(['/job-ads']), 2000);
       },
       error: (err) => {

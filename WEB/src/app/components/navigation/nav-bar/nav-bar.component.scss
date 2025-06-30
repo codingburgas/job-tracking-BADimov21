@@ -1,3 +1,4 @@
+// Navbar entrance animation
 .animate-navbar {
   animation: fadeInDown 0.6s ease-out;
 }
@@ -13,25 +14,29 @@
   }
 }
 
+// Brand styling
 .navbar-brand .brand-name {
   font-weight: 600;
-  color: #000; // Makes "Grindin’" text black like you asked
+  color: #000; // Solid black for logo text
 }
 
+// Navigation links
 .nav-link {
   color: #333;
   transition: color 0.2s ease-in-out;
 
   &.active,
   &:hover {
-    color: #0d6efd;
+    color: #0d6efd; // Bootstrap primary on hover/active
   }
 }
 
+// Logout button hover effect
 .btn-outline-danger {
   transition: 0.2s ease;
+
   &:hover {
-    background-color: #dc3545;
-    color: #fff;
+    background-color: #dc3545; // Danger background
+    color: #fff;               // White text
   }
 }

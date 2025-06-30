@@ -1,34 +1,38 @@
 <div class="container py-4">
+  <!-- Page Title -->
   <h2 class="mb-4 text-center fs-3 text-primary fw-semibold">Кандидатури за работа</h2>
 
+  <!-- Filter Card -->
   <div class="card shadow-sm border-0 mb-4 rounded-4">
     <div class="card-header bg-white border-bottom-0 rounded-top-4">
       <h5 class="mb-0 text-secondary fw-semibold fs-5">Филтриране</h5>
     </div>
     <div class="card-body">
       <form class="row gy-3 gx-3 align-items-end small">
+        <!-- Status Filter -->
         <div class="col-md-4">
-  <label class="form-label">Статус</label>
-  <select
-    class="form-select form-select-sm"
-    [(ngModel)]="filters.status"
-    name="status"
-  >
-    <option [ngValue]="null">-- Всички --</option>
-    <option [ngValue]="0">Подадена</option>
-    <option [ngValue]="1">Одобрена за интервю</option>
-    <option [ngValue]="2">Отказана</option>
-  </select>
-</div>
+          <label class="form-label">Статус</label>
+          <select class="form-select form-select-sm" [(ngModel)]="filters.status" name="status">
+            <option [ngValue]="null">-- Всички --</option>
+            <option [ngValue]="0">Подадена</option>
+            <option [ngValue]="1">Одобрена за интервю</option>
+            <option [ngValue]="2">Отказана</option>
+          </select>
+        </div>
 
+        <!-- User ID Filter (Admin Only) -->
         <div class="col-md-4" *ngIf="userRole === 1">
           <label class="form-label">ID на потребителя</label>
           <input type="number" class="form-control form-control-sm" [(ngModel)]="filters.userId" name="userId" />
         </div>
+
+        <!-- Job Ad ID Filter -->
         <div class="col-md-4">
           <label class="form-label">ID на обявата</label>
           <input type="number" class="form-control form-control-sm" [(ngModel)]="filters.jobAdId" name="jobAdId" />
         </div>
+
+        <!-- Apply Filters Button -->
         <div class="col-12 text-end mt-2">
           <button type="button" class="btn btn-sm btn-primary px-3 rounded-pill" (click)="applyFilters()">
             <i class="bi bi-search me-1"></i> Приложи филтрите
@@ -38,21 +42,28 @@
     </div>
   </div>
 
+  <!-- No Applications Warning -->
   <div *ngIf="jobApplications.length === 0" class="alert alert-warning text-center small">
     <i class="bi bi-exclamation-triangle me-1"></i> Няма намерени кандидатури.
   </div>
 
+  <!-- Applications List -->
   <div class="row g-3" *ngIf="jobApplications.length > 0">
     <div class="col-md-6" *ngFor="let app of jobApplications">
       <div class="card shadow-sm border-0 h-100 rounded-4">
         <div class="card-body small">
+          <!-- Application Header -->
           <h6 class="card-title fw-bold text-dark mb-3">Кандидатура #{{ app.id }}</h6>
 
+          <!-- Applicant Name -->
           <p>
             <strong>Име:</strong> {{ app.user.firstName || '' }} {{ app.user.middleName || '' }} {{ app.user.lastName || '' }}
           </p>
+
+          <!-- Username and User ID -->
           <p><strong>Потребител:</strong> {{ app.user.username }} <span class="text-muted">(ID: {{ app.userId }})</span></p>
 
+          <!-- User Role Badge -->
           <p>
             <strong>Роля:</strong>
             <span
@@ -67,11 +78,13 @@
             </span>
           </p>
 
+          <!-- Job Ad Info -->
           <p>
             <strong>Обява:</strong> {{ app.jobAd.title }}<br />
             <span class="text-muted">от {{ app.jobAd.companyName }} (ID: {{ app.jobAdId }})</span>
           </p>
 
+          <!-- Application Status Badge -->
           <p>
             <strong>Статус:</strong>
             <span
@@ -86,6 +99,8 @@
             </span>
             <span class="text-muted ms-2">Код: {{ app.status }}</span>
           </p>
+
+          <!-- Review Button (Admin Only) -->
           <div *ngIf="userRole === 1" class="mt-3">
             <button
               class="btn btn-sm btn-outline-primary rounded-pill px-3"
@@ -100,8 +115,10 @@
     </div>
   </div>
 
+  <!-- Pagination -->
   <nav class="mt-4" *ngIf="pages.length > 0">
     <ul class="pagination pagination-sm justify-content-center">
+      <!-- Previous Page -->
       <li class="page-item" [class.disabled]="currentPage === 1">
         <button
           type="button"
@@ -113,6 +130,7 @@
         </button>
       </li>
 
+      <!-- Page Numbers -->
       <li class="page-item" *ngFor="let page of pages" [class.active]="page === currentPage">
         <button
           type="button"
@@ -124,6 +142,7 @@
         </button>
       </li>
 
+      <!-- Next Page -->
       <li class="page-item" [class.disabled]="currentPage === totalPages">
         <button
           type="button"

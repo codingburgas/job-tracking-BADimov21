@@ -1,22 +1,27 @@
 footer {
+  // Base font for the footer
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
+  // Smooth color transition for all links
   a {
     transition: color 0.3s ease;
   }
   
+  // Hover and focus style for links with .hover-primary
   a.hover-primary:hover,
   a.hover-primary:focus {
-    color: #0d6efd; // Bootstrap primary color
+    color: #0d6efd; // Primary blue
     text-decoration: none;
   }
 
+  // Footer paragraph style
   p {
     font-size: 0.9rem;
   }
 
+  // Hover effect for .text-reset links
   a.text-reset:hover {
-  color: #0d6efd !important;
-  transition: color 0.3s;
-}
+    color: #0d6efd !important;
+    transition: color 0.3s;
+  }
 }

@@ -8,26 +8,54 @@ export class JobAdsService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Retrieves paginated and filtered job ads from the backend.
+   * @param page - current page number
+   * @param pageSize - number of items per page
+   * @param filters - filtering criteria object
+   * @returns Observable with job ads data
+   */
   getJobAds(page: number, pageSize: number, filters: any): Observable<any> {
-    return this.http.post<any>('http://localhost:5230/api/JobAd/GetFiltered', {
+    return this.http.post<any>(`${this.apiUrl}/JobAd/GetFiltered`, {
       page,
       pageSize,
       filters
     });
   }
 
-  createJobAd(jobAd: any) {
+  /**
+   * Creates a new job advertisement.
+   * @param jobAd - job ad data object
+   * @returns Observable of creation result
+   */
+  createJobAd(jobAd: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/JobAd/Add`, jobAd);
   }
 
-  getJobAdById(id: number) {
+  /**
+   * Fetches a single job advertisement by ID.
+   * @param id - job ad ID
+   * @returns Observable with job ad details
+   */
+  getJobAdById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/JobAd/GetById/${id}`);
   }
 
-  updateJobAd(id: number, jobAd: any) {
+  /**
+   * Updates an existing job ad by ID.
+   * @param id - job ad ID
+   * @param jobAd - updated job ad data
+   * @returns Observable of update result
+   */
+  updateJobAd(id: number, jobAd: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/JobAd/Update/${id}`, jobAd);
   }
 
+  /**
+   * Deletes a job ad by ID.
+   * @param adId - job ad ID
+   * @returns Observable of deletion result (void)
+   */
   deleteJobAd(adId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/JobAd/Delete/${adId}`);
   }

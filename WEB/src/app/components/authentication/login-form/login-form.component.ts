@@ -1,7 +1,10 @@
+// Angular core and common imports
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+
+// Services
 import { AuthService } from '../../../services/auth.service';
 
 @Component({
@@ -12,7 +15,10 @@ import { AuthService } from '../../../services/auth.service';
   standalone: true
 })
 export class LoginFormComponent {
+  // Form group for login inputs
   loginForm: FormGroup;
+
+  // UI state
   showPassword = false;
   errorMessage: string | null = null;
   loginError = false;
@@ -22,19 +28,23 @@ export class LoginFormComponent {
     private authService: AuthService,
     private router: Router
   ) {
+    // Initialize form with validators
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
 
+  // Toggle visibility of password input
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
   }
 
+  // Handle login form submission
   onLogin() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;
+
       this.authService.login(username, password).subscribe({
         next: (response) => {
           console.log('Login success', response);

@@ -1,22 +1,27 @@
 // Job Applications Page Styles
 
+// Container max width
 .container {
   max-width: 960px;
 }
 
+// Main heading styles
 h2 {
-  color: #0d6efd; // Bootstrap primary
+  color: #0d6efd; // Bootstrap primary blue
   font-weight: 600;
 }
 
+// Card styles and variants
 .card {
   border-radius: 1rem !important; // rounded-4 equivalent
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 
+  // Smaller shadow variant
   &.shadow-sm {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
   }
 
+  // Card header styles
   &-header {
     background-color: #fff;
     border-bottom: none;
@@ -24,16 +29,20 @@ h2 {
     border-top-right-radius: 1rem;
   }
 
+  // Card body typography and spacing
   &-body {
     font-size: 0.9rem;
     color: #343a40;
 
+    // Headings inside card body
     h5, h6 {
       color: #212529;
     }
 
+    // Paragraph spacing and strong text color
     p {
       margin-bottom: 0.6rem;
+
       strong {
         color: #495057;
       }
@@ -41,24 +50,28 @@ h2 {
   }
 }
 
+// Form label styling
 .form-label {
   font-weight: 600;
   color: #495057;
   font-size: 0.875rem;
 }
 
+// Small inputs styling
 input.form-control-sm {
   font-size: 0.875rem;
   padding: 0.25rem 0.5rem;
   border-radius: 0.5rem;
   border: 1px solid #ced4da;
 
+  // Focus state
   &:focus {
     border-color: #0d6efd;
     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
   }
 }
 
+// Button base styles and variants
 button.btn {
   font-size: 0.875rem;
   font-weight: 600;
@@ -67,6 +80,7 @@ button.btn {
   padding-right: 1rem;
   transition: background-color 0.3s ease;
 
+  // Outline primary button hover effect
   &.btn-outline-primary {
     &:hover {
       background-color: #0d6efd;
@@ -75,6 +89,7 @@ button.btn {
   }
 }
 
+// Badge styling and shape
 .badge {
   font-weight: 600;
   font-size: 0.85rem;
@@ -82,6 +97,7 @@ button.btn {
   border-radius: 50px; // rounded-pill
 }
 
+// Status background colors and text
 .bg-warning {
   background-color: #fff3cd !important;
   color: #664d03 !important;
@@ -107,18 +123,23 @@ button.btn {
   color: #055160 !important;
 }
 
+// Muted text style
 .text-muted {
   font-size: 0.85rem;
 }
 
+// Pagination styles and states
 .pagination {
   .page-item {
+    // Disabled page link
     &.disabled .page-link {
       pointer-events: none;
       color: #adb5bd;
       background-color: transparent;
       border-color: transparent;
     }
+
+    // Active page link
     &.active .page-link {
       background-color: #0d6efd;
       border-color: #0d6efd;
@@ -126,6 +147,7 @@ button.btn {
       font-weight: 600;
     }
 
+    // Page link base styling
     .page-link {
       border-radius: 50px; // pill shape
       padding: 0.375rem 0.75rem;
@@ -134,6 +156,7 @@ button.btn {
       border: 1px solid #0d6efd;
       transition: background-color 0.3s ease, color 0.3s ease;
 
+      // Hover state
       &:hover {
         background-color: #0d6efd;
         color: white;
@@ -142,6 +165,7 @@ button.btn {
   }
 }
 
+// Warning alert styles
 .alert-warning {
   font-size: 0.9rem;
   display: flex;
@@ -149,6 +173,7 @@ button.btn {
   justify-content: center;
   gap: 0.5rem;
 
+  // Icon size adjustment
   i.bi {
     font-size: 1.2rem;
   }

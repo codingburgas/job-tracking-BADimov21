@@ -31,6 +31,7 @@ export class RegistrationFormComponent {
     private authService: AuthService,
     private router: Router
   ) {
+    // Initialize form with controls and validators
     this.registerForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.maxLength(64), this.nameValidator()]],
       middleName: ['', [Validators.required, Validators.maxLength(64), this.nameValidator()]],
@@ -39,21 +40,19 @@ export class RegistrationFormComponent {
       password: ['', [Validators.required, Validators.maxLength(128), this.passwordComplexityValidator()]],
       confirmPassword: ['', Validators.required],
       role: [0],
-    },
-    { validators: this.passwordsMatch });
+    }, { validators: this.passwordsMatch });
   }
 
   toggleShowPassword() {
     this.showPassword = !this.showPassword;
   }
 
+  // Validates names: letters only, min length 2, at least one uppercase letter
   nameValidator(): ValidatorFn {
     const lettersOnly = /^[A-Za-z]+$/;
     return (control: AbstractControl): ValidationErrors | null => {
       const val = control.value;
-      if (!val) {
-        return null;
-      }
+      if (!val) return null;
       if (!lettersOnly.test(val)) return { pattern: true };
       if (val.length < 2) return { minlength: { requiredLength: 2, actualLength: val.length } };
       if (!/[A-Z]/.test(val)) return { capitalLetter: true };
@@ -61,13 +60,12 @@ export class RegistrationFormComponent {
     };
   }
 
+  // Optional name validator: allows empty, otherwise same checks as nameValidator
   optionalNameValidator(): ValidatorFn {
     const lettersOnly = /^[A-Za-z]*$/;
     return (control: AbstractControl): ValidationErrors | null => {
       const val = control.value;
-      if (!val) {
-        return null;
-      }
+      if (!val) return null;
       if (!lettersOnly.test(val)) return { pattern: true };
       if (val.length > 0 && val.length < 2) return { minlength: { requiredLength: 2, actualLength: val.length } };
       if (val.length > 0 && !/[A-Z]/.test(val)) return { capitalLetter: true };
@@ -75,22 +73,20 @@ export class RegistrationFormComponent {
     };
   }
 
+  // Username validator: minimum length 3
   usernameValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const val = control.value;
-      if (!val) {
-        return null;
-      }
+      if (!val) return null;
       return val.length >= 3 ? null : { minlength: { requiredLength: 3, actualLength: val.length } };
     };
   }
 
+  // Password complexity validator
   passwordComplexityValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const val: string = control.value || '';
-      if (!val) {
-        return null;
-      }
+      if (!val) return null;
 
       const errors: ValidationErrors = {};
       if (val.length < 8) errors['minlength'] = { requiredLength: 8, actualLength: val.length };
@@ -99,10 +95,11 @@ export class RegistrationFormComponent {
       if (!/\d/.test(val)) errors['number'] = true;
       if (!/[!@#$%^&*\~\?]/.test(val)) errors['specialChar'] = true;
 
-      return Object.keys(errors).length > 0 ? errors : null;
+      return Object.keys(errors).length ? errors : null;
     };
   }
 
+  // Form-level validator to check matching passwords
   passwordsMatch(group: AbstractControl): ValidationErrors | null {
     const pass = group.get('password')?.value;
     const confirm = group.get('confirmPassword')?.value;
@@ -116,17 +113,15 @@ export class RegistrationFormComponent {
     if (this.registerForm.invalid) {
       this.registerForm.markAllAsTouched();
 
+      // Scroll to first invalid control
       const firstInvalidControl = Object.keys(this.registerForm.controls)
-        .map((key) => ({ key, control: this.registerForm.get(key) }))
-        .find((entry) => entry.control && entry.control.invalid);
+        .map(key => ({ key, control: this.registerForm.get(key) }))
+        .find(entry => entry.control && entry.control.invalid);
 
       if (firstInvalidControl) {
         const el = document.querySelector(`[formControlName="${firstInvalidControl.key}"]`);
-        if (el) {
-          (el as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        if (el) (el as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-
       return;
     }
 

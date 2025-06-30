@@ -1,4 +1,5 @@
 <div class="container py-4">
+  <!-- Page title -->
   <h2 class="text-center text-primary fw-semibold fs-3 mb-4">Обяви за работа</h2>
 
   <!-- Alert Message -->
@@ -13,27 +14,31 @@
     <button type="button" class="btn-close" (click)="alertMessage = null"></button>
   </div>
 
+  <!-- Add Job Ad button (visible only to admin) -->
   <div *ngIf="userRole === 1" class="mb-4">
     <button class="btn btn-primary" (click)="onAddJobAd()">
       + Добави обява
     </button>
   </div>
 
+  <!-- Filters card -->
   <div class="card shadow-sm border-0 mb-4 rounded-4">
     <div class="card-header bg-white border-bottom-0 rounded-top-4">
       <h5 class="mb-0 text-secondary fw-semibold fs-5">Филтриране</h5>
     </div>
-
     <div class="card-body small">
       <form class="row gy-3 gx-3 align-items-end">
+        <!-- Title filter -->
         <div class="col-md-3">
           <label class="form-label">Заглавие</label>
           <input type="text" class="form-control form-control-sm" placeholder="Пример: Програмист" [(ngModel)]="filters.title" name="title" />
         </div>
+        <!-- Company filter -->
         <div class="col-md-3">
           <label class="form-label">Компания</label>
           <input type="text" class="form-control form-control-sm" placeholder="Име на фирма" [(ngModel)]="filters.companyName" name="companyName" />
         </div>
+        <!-- Status filter -->
         <div class="col-md-3">
           <label class="form-label">Статус</label>
           <select class="form-select form-select-sm" [(ngModel)]="filters.isOpen" name="isOpen">
@@ -42,10 +47,13 @@
             <option [ngValue]="false">Затворени</option>
           </select>
         </div>
+        <!-- Published date filter -->
         <div class="col-md-3">
           <label class="form-label">Дата на публикуване</label>
           <input type="date" class="form-control form-control-sm" [(ngModel)]="filters.publishedOn" name="publishedOn" />
         </div>
+
+        <!-- Apply filters button -->
         <div class="col-12 text-end mt-2">
           <button type="button" class="btn btn-sm btn-primary px-3 rounded-pill" (click)="applyFilters()">
             <i class="bi bi-funnel-fill me-1"></i> Приложи филтрите
@@ -55,25 +63,31 @@
     </div>
   </div>
 
+  <!-- No job ads message -->
   <div *ngIf="jobAds.length === 0" class="alert alert-warning text-center small">
     <i class="bi bi-info-circle me-1"></i> Няма налични обяви.
   </div>
 
+  <!-- Job ads list -->
   <div class="row g-3" *ngIf="jobAds.length > 0">
     <div class="col-md-6" *ngFor="let ad of jobAds">
       <div class="card shadow-sm border-0 h-100 rounded-4">
         <div class="card-body small">
+          <!-- Job ad details -->
           <h6 class="card-title fw-bold text-dark mb-1">{{ ad.title }}</h6>
           <p class="mb-1 text-muted">{{ ad.companyName }}</p>
           <p class="mb-2">{{ ad.description }}</p>
           <p class="mb-1 text-secondary">
             <strong>Публикувана на:</strong> {{ ad.publishedOn | date:'dd.MM.yyyy' }}
           </p>
+
+          <!-- Status badge -->
           <span class="badge rounded-pill px-2 py-1"
             [ngClass]="ad.isOpen ? 'bg-success-subtle text-success' : 'bg-danger-subtle text-danger'">
             {{ ad.isOpen ? 'Активна' : 'Неактивна' }}
           </span>
 
+          <!-- Admin controls (edit/delete) -->
           <div *ngIf="userRole === 1" class="mt-3 d-flex gap-2">
             <button class="btn btn-sm btn-outline-primary rounded-pill px-3" (click)="onEditJobAd(ad)">
               <i class="bi bi-pencil-square me-1"></i> Редактирай
@@ -89,6 +103,7 @@
             </button>
           </div>
 
+          <!-- User apply button (only for users, and only if ad is open) -->
           <div *ngIf="userRole === 0 && ad.isOpen" class="mt-3">
             <button class="btn btn-sm btn-primary rounded-pill px-3"
                     (click)="onApply(ad)"
@@ -103,6 +118,7 @@
     </div>
   </div>
 
+  <!-- Pagination controls -->
   <nav class="mt-4" *ngIf="pages.length > 0">
     <ul class="pagination pagination-sm justify-content-center">
       <li class="page-item" [class.disabled]="currentPage === 1">
@@ -122,7 +138,9 @@
   </nav>
 
   <!-- Delete Confirmation Modal -->
-  <div class="modal fade" tabindex="-1" role="dialog" id="deleteConfirmModal" aria-labelledby="deleteConfirmLabel" aria-hidden="true" [ngClass]="{'show d-block': showDeleteModal}" [style.backgroundColor]="showDeleteModal ? 'rgba(0,0,0,0.5)' : 'transparent'">
+  <div class="modal fade" tabindex="-1" role="dialog" id="deleteConfirmModal" aria-labelledby="deleteConfirmLabel" aria-hidden="true"
+       [ngClass]="{'show d-block': showDeleteModal}"
+       [style.backgroundColor]="showDeleteModal ? 'rgba(0,0,0,0.5)' : 'transparent'">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content rounded-4">
         <div class="modal-header">

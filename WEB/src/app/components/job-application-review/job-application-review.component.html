@@ -1,20 +1,27 @@
 <div class="container py-4">
+  <!-- Page title -->
   <h2 class="mb-4 text-center fs-3 text-primary fw-semibold">Преглед на кандидатура</h2>
 
+  <!-- Main card: show application details or loading placeholder -->
   <div *ngIf="application; else loading" class="card shadow-sm border-0 rounded-4">
     <div class="card-body small">
+
+      <!-- Application ID -->
       <h5 class="card-title fw-bold text-dark mb-3">Кандидатура #{{ application.id }}</h5>
 
+      <!-- Applicant's full name -->
       <p>
         <strong>Име:</strong>
         {{ application.user.firstName || '' }} {{ application.user.middleName || '' }} {{ application.user.lastName || '' }}
       </p>
 
+      <!-- Username and user ID -->
       <p>
         <strong>Потребител:</strong> {{ application.user.username }}
         <span class="text-muted">(ID: {{ application.userId }})</span>
       </p>
 
+      <!-- User role badge -->
       <p>
         <strong>Роля:</strong>
         <span class="badge rounded-pill px-2 py-1"
@@ -23,11 +30,13 @@
         </span>
       </p>
 
+      <!-- Job ad details -->
       <p>
         <strong>Обява:</strong> {{ application.jobAd.title }}<br />
         <span class="text-muted fst-italic">от {{ application.jobAd.companyName }} (ID: {{ application.jobAdId }})</span>
       </p>
 
+      <!-- Application status with badge -->
       <p>
         <strong>Статус:</strong>
         <span class="badge rounded-pill px-2 py-1"
@@ -43,7 +52,7 @@
 
       <hr class="my-4" />
 
-      <!-- Alerts -->
+      <!-- Success and error alerts -->
       <div *ngIf="successMessage" class="alert alert-success mt-2 rounded-3 d-flex align-items-center" role="alert">
         <i class="bi bi-check-circle-fill me-2 fs-5"></i>
         <span>{{ successMessage }}</span>
@@ -53,7 +62,7 @@
         <span>{{ errorMessage }}</span>
       </div>
 
-      <!-- Status form -->
+      <!-- Form to change application status -->
       <form (ngSubmit)="onStatusChange(selectedStatus)">
         <div class="mb-3 mt-4">
           <label for="status" class="form-label fw-semibold">Промени статуса</label>
@@ -71,6 +80,7 @@
     </div>
   </div>
 
+  <!-- Loading template displayed while application data is not yet loaded -->
   <ng-template #loading>
     <div class="text-muted text-center py-5">
       <i class="bi bi-hourglass-split me-1 fs-4"></i> Зареждане на кандидатурата...

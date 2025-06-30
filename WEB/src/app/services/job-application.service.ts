@@ -8,6 +8,13 @@ export class JobApplicationService {
 
   constructor(private http: HttpClient) {}
 
+  /**
+   * Retrieves paginated and filtered job applications.
+   * @param page - current page number
+   * @param pageSize - number of items per page
+   * @param filters - filtering criteria object
+   * @returns Observable with job applications data
+   */
   getJobApplications(page: number, pageSize: number, filters: any): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/JobApplication/GetFiltered`, {
       page,
@@ -16,19 +23,35 @@ export class JobApplicationService {
     });
   }
 
-  getJobApplicationById(id: number) {
+  /**
+   * Gets a single job application by ID.
+   * @param id - application ID
+   * @returns Observable with job application details
+   */
+  getJobApplicationById(id: number): Observable<any> {
     return this.http.get(`${this.apiUrl}/JobApplication/GetById/${id}`);
   }
 
-  updateJobApplication(dto: { id: number; status?: number }) {
+  /**
+   * Updates job application status or other fields.
+   * @param dto - object containing application ID and optional status
+   * @returns Observable of update result
+   */
+  updateJobApplication(dto: { id: number; status?: number }): Observable<any> {
     return this.http.put(`${this.apiUrl}/JobApplication/Update/${dto.id}`, dto);
   }
 
+  /**
+   * Submits a new job application.
+   * @param jobAdId - ID of the job ad to apply to
+   * @param userId - ID of the user applying
+   * @returns Observable of creation result
+   */
   applyToJob(jobAdId: number, userId: number): Observable<any> {
     const payload = {
-      jobAdId: jobAdId,
-      userId: userId,
-      status: 0
+      jobAdId,
+      userId,
+      status: 0 // default initial status
     };
 
     return this.http.post(`${this.apiUrl}/JobApplication/Add`, payload);

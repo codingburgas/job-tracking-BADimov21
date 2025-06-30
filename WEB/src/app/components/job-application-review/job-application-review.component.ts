@@ -18,6 +18,7 @@ export class JobApplicationReviewComponent implements OnInit {
   successMessage: string | null = null;
   errorMessage: string | null = null;
 
+  // Holds the loaded job application data
   application: {
     id: number;
     userId: number;
@@ -47,18 +48,20 @@ export class JobApplicationReviewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // Subscribe to route params and load the application by ID
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
       if (!id) {
-        return;
+        return; // Exit if ID is invalid
       }
       
       this.applicationId = id;
 
+      // Fetch application data from service
       this.jobApplicationService.getJobApplicationById(id).subscribe({
         next: (data: any) => {
           this.application = data;
-          this.selectedStatus = data.status;
+          this.selectedStatus = data.status; // Initialize selected status
         },
         error: (err: any) => {
           console.error('Error loading job application', err);
@@ -68,6 +71,7 @@ export class JobApplicationReviewComponent implements OnInit {
     });
   }
 
+  // Handler for status change form submission
   onStatusChange(status: number | null): void {
     this.successMessage = null;
     this.errorMessage = null;
@@ -82,11 +86,12 @@ export class JobApplicationReviewComponent implements OnInit {
       status: status
     };
 
+    // Send updated status to backend
     this.jobApplicationService.updateJobApplication(updateDto).subscribe({
       next: () => {
         this.successMessage = 'Статусът беше успешно обновен.';
         if (this.application) {
-          this.application.status = status;
+          this.application.status = status; // Update local data
         }
       },
       error: (err: any) => {

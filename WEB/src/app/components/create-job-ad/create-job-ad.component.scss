@@ -1,26 +1,31 @@
+/* Card container styling */
 .card {
   border-radius: 1rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
   border: none;
 
+  /* Card body text styling */
   .card-body {
     font-size: 0.875rem;
     color: #343a40;
   }
 }
 
+/* Form label styling */
 .form-label {
   font-weight: 600;
   color: #495057;
   font-size: 0.875rem;
 }
 
+/* Inputs and selects styling */
 .form-control,
 .form-select {
   font-size: 0.875rem;
   border-radius: 0.5rem;
 }
 
+/* Buttons styling */
 button.btn {
   font-weight: 600;
   border-radius: 50px;
