@@ -135,6 +135,15 @@
         <td><img src="https://github.com/user-attachments/assets/5add6a47-da61-439e-82b5-8164079fb643"></td>
     </tr>
 </table>
+<br>
+<table>
+    <tr>
+        <th>Block Scheme</th>
+    </tr>
+    <tr>
+        <td><img src="https://github.com/user-attachments/assets/132618d8-30d8-4e65-a5b5-9add06e7b252"></td>
+    </tr>
+</table>
 
 <hr>
 
