@@ -103,25 +103,39 @@ public class JobAdService : IJobAdService
         var entity = await Provider.Db.JobAds.FindAsync(dto.Id);
 
         if (entity is null)
+        {
             return false;
+        }
 
         if (!string.IsNullOrWhiteSpace(dto.Title))
+        {
             entity.Title = dto.Title;
+        }
 
         if (!string.IsNullOrWhiteSpace(dto.CompanyName))
+        {
             entity.CompanyName = dto.CompanyName;
+        }
 
         if (!string.IsNullOrWhiteSpace(dto.Description))
+        {
             entity.Description = dto.Description;
+        }
 
         if (dto.PublishedOn.HasValue)
+        {
             entity.PublishedOn = dto.PublishedOn.Value;
+        }
 
         if (dto.IsOpen.HasValue)
+        {
             entity.IsOpen = dto.IsOpen.Value;
+        }
 
         if (dto.IsActive.HasValue)
+        {
             entity.IsActive = dto.IsActive.Value;
+        }
 
         entity.UpdatedOn = DateTime.UtcNow;
         entity.UpdatedBy = "system";
@@ -139,7 +153,9 @@ public class JobAdService : IJobAdService
     {
         var entity = await Provider.Db.JobAds.FindAsync(id);
         if (entity is null)
+        {
             return false;
+        }
 
         Provider.Db.JobAds.Remove(entity);
         await Provider.Db.SaveChangesAsync();

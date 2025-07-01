@@ -65,19 +65,29 @@ namespace JobTracking.Application.Implementation
             if (userFilter is not null)
             {
                 if (!string.IsNullOrEmpty(userFilter.FirstName))
+                {
                     query = query.Where(u => u.FirstName.Contains(userFilter.FirstName));
+                }
 
                 if (!string.IsNullOrEmpty(userFilter.MiddleName))
+                {
                     query = query.Where(u => u.MiddleName.Contains(userFilter.MiddleName));
+                }
 
                 if (!string.IsNullOrEmpty(userFilter.LastName))
+                {
                     query = query.Where(u => u.LastName.Contains(userFilter.LastName));
+                }
 
                 if (!string.IsNullOrEmpty(userFilter.Username))
+                {
                     query = query.Where(u => u.Username.Contains(userFilter.Username));
+                }
 
                 if (userFilter.Role is not null)
+                {
                     query = query.Where(u => u.Role == userFilter.Role);
+                }
             }
 
             query = query.Skip(filter.PageSize * (filter.Page - 1)).Take(filter.PageSize);
@@ -100,7 +110,9 @@ namespace JobTracking.Application.Implementation
         public async Task<UserResponseDTO> CreateUser(UserCreateRequestDTO dto)
         {
             if (await Provider.Db.Users.AnyAsync(u => u.Username == dto.Username))
+            {
                 throw new InvalidOperationException("Username already exists.");
+            }
 
             var hashedPassword = PasswordHasher.HashPassword(dto.Password);
 
@@ -140,7 +152,9 @@ namespace JobTracking.Application.Implementation
             var entity = await Provider.Db.Users.FindAsync(dto.Id);
 
             if (entity is null)
+            {
                 return false;
+            }
 
             entity.FirstName = dto.FirstName;
             entity.MiddleName = dto.MiddleName;
@@ -148,7 +162,9 @@ namespace JobTracking.Application.Implementation
             entity.Username = dto.Username;
 
             if (!string.IsNullOrEmpty(dto.Password))
+            {
                 entity.Password = PasswordHasher.HashPassword(dto.Password);
+            }
 
             entity.Role = dto.Role;
             entity.UpdatedOn = DateTime.UtcNow;
@@ -168,7 +184,9 @@ namespace JobTracking.Application.Implementation
             var entity = await Provider.Db.Users.FindAsync(userId);
 
             if (entity is null)
+            {
                 return false;
+            }
 
             Provider.Db.Users.Remove(entity);
             await Provider.Db.SaveChangesAsync();

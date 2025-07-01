@@ -18,7 +18,7 @@ namespace JobTracking.Domain.Filters.Base
         public int? JobAdId { get; set; }
 
         /// <summary>
-        /// Filters job applications by their status (e.g., submitted, approved, rejected).
+        /// Filters job applications by their status (submitted, approved, rejected).
         /// </summary>
         public ApplicationStatusEnum? Status { get; set; }
     }

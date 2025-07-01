@@ -29,7 +29,7 @@ namespace JobTracking.Domain.Filters
         public string? Username { get; set; }
 
         /// <summary>
-        /// Filters users by their role (e.g., User or Admin).
+        /// Filters users by their role (User or Admin).
         /// </summary>
         public UserRoleEnum? Role { get; set; }
     }
