@@ -45,7 +45,7 @@
 
 <h2 id="demonstration">Demonstration</h2>
     
-<h3>See a video demonstration of the project in action <a href="https://codingburgas-my.sharepoint.com/:v:/g/personal/badimov21_codingburgas_bg/EQYxjIzO9HJOniGhH35P8acBSeBn5LLpidP3j6yhhFkV7A?e=SLm5HS&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">here</a>.<h3>
+<h3>See a video demonstration of the project in action <a href="https://codingburgas-my.sharepoint.com/:v:/g/personal/badimov21_codingburgas_bg/EQYxjIzO9HJOniGhH35P8acBSeBn5LLpidP3j6yhhFkV7A?e=SLm5HS&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">here</a>.</h3>
     
 <summary>Screenshots</summary>
 <details open="open">
