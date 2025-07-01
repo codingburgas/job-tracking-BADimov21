@@ -1,6 +1,4 @@
 ﻿namespace JobTracking.Domain.Filters.Base
 {
-    public interface IFilter
-    {
-    }
+    public interface IFilter { }
 }

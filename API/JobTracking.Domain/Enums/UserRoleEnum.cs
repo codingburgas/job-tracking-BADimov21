@@ -1,7 +1,18 @@
-﻿namespace JobTracking.Domain.Enums;
-
-public enum UserRoleEnum
+﻿namespace JobTracking.Domain.Enums
 {
-    USER,
-    ADMIN
+    /// <summary>
+    /// Defines the roles that a user can have within the system.
+    /// </summary>
+    public enum UserRoleEnum
+    {
+        /// <summary>
+        /// Regular user with limited permissions.
+        /// </summary>
+        USER,
+
+        /// <summary>
+        /// Administrator with elevated permissions.
+        /// </summary>
+        ADMIN
+    }
 }

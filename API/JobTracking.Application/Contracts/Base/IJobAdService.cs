@@ -5,14 +5,41 @@ using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Filters;
 using JobTracking.Domain.Filters.Base;
 
-namespace JobTracking.Application.Contracts.Base;
-
-public interface IJobAdService
+namespace JobTracking.Application.Contracts.Base
 {
-    public Task<List<JobAd>> GetAllJobAds(int page, int pageCount);
-    public Task<JobAdResponseDTO?> GetJobAd(int userId);
-    public Task<JobAdResponseDTO> CreateJobAd(JobAdCreateRequestDTO dto);
-    public Task<bool> UpdateJobAd(JobAdUpdateRequestDTO dto);
-    public Task<bool> DeleteJobAd(int id);
-    public Task<IQueryable<JobAdResponseDTO>> GetFilteredJobAds(BaseFilter<JobAdFilter> filter);
+    /// <summary>
+    /// Defines service methods for managing job advertisements.
+    /// </summary>
+    public interface IJobAdService
+    {
+        /// <summary>
+        /// Retrieves all job ads with pagination.
+        /// </summary>
+        Task<List<JobAd>> GetAllJobAds(int page, int pageCount);
+
+        /// <summary>
+        /// Retrieves a specific job ad by its ID.
+        /// </summary>
+        Task<JobAdResponseDTO?> GetJobAd(int userId);
+
+        /// <summary>
+        /// Creates a new job ad.
+        /// </summary>
+        Task<JobAdResponseDTO> CreateJobAd(JobAdCreateRequestDTO dto);
+
+        /// <summary>
+        /// Updates an existing job ad.
+        /// </summary>
+        Task<bool> UpdateJobAd(JobAdUpdateRequestDTO dto);
+
+        /// <summary>
+        /// Deletes a job ad by ID.
+        /// </summary>
+        Task<bool> DeleteJobAd(int id);
+
+        /// <summary>
+        /// Retrieves filtered job ads based on given criteria.
+        /// </summary>
+        Task<IQueryable<JobAdResponseDTO>> GetFilteredJobAds(BaseFilter<JobAdFilter> filter);
+    }
 }

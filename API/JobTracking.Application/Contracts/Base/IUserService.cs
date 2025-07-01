@@ -5,14 +5,41 @@ using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Filters;
 using JobTracking.Domain.Filters.Base;
 
-namespace JobTracking.Application.Contracts.Base;
-
-public interface IUserService
+namespace JobTracking.Application.Contracts.Base
 {
-    public Task<List<User>> GetAllUsers(int page, int pageCount);
-    public Task<UserResponseDTO?> GetUser(int userId);
-    public Task<UserResponseDTO> CreateUser(UserCreateRequestDTO dto);
-    public Task<bool> UpdateUser(UserUpdateRequestDTO dto);
-    public Task<bool> DeleteUser(int id);
-    public Task<IQueryable<UserResponseDTO>> GetFilteredUsers(BaseFilter<UserFilter> filter);
+    /// <summary>
+    /// Defines service methods for managing users.
+    /// </summary>
+    public interface IUserService
+    {
+        /// <summary>
+        /// Retrieves all users with pagination.
+        /// </summary>
+        Task<List<User>> GetAllUsers(int page, int pageCount);
+
+        /// <summary>
+        /// Retrieves a specific user by ID.
+        /// </summary>
+        Task<UserResponseDTO?> GetUser(int userId);
+
+        /// <summary>
+        /// Creates a new user.
+        /// </summary>
+        Task<UserResponseDTO> CreateUser(UserCreateRequestDTO dto);
+
+        /// <summary>
+        /// Updates an existing user.
+        /// </summary>
+        Task<bool> UpdateUser(UserUpdateRequestDTO dto);
+
+        /// <summary>
+        /// Deletes a user by ID.
+        /// </summary>
+        Task<bool> DeleteUser(int id);
+
+        /// <summary>
+        /// Retrieves filtered and paginated users based on specified criteria.
+        /// </summary>
+        Task<IQueryable<UserResponseDTO>> GetFilteredUsers(BaseFilter<UserFilter> filter);
+    }
 }

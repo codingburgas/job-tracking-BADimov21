@@ -11,15 +11,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.Application.Implementation;
 
+/// <summary>
+/// Service for managing Job Applications.
+/// </summary>
 public class JobApplicationService : IJobApplicationService
 {
     protected DependencyProvider Provider { get; set; }
     
+    /// <summary>
+    /// Constructor with dependency injection.
+    /// </summary>
+    /// <param name="provider">Dependency provider instance</param>
     public JobApplicationService(DependencyProvider provider)
     {
         Provider = provider;
     }
 
+    /// <summary>
+    /// Retrieves paginated list of Job Applications.
+    /// </summary>
+    /// <param name="page">Page number (1-based)</param>
+    /// <param name="pageCount">Items per page</param>
+    /// <returns>List of JobApplication entities</returns>
     public async Task<List<JobApplication>> GetAllJobApplications(int page, int pageCount)
     {
         return await Provider.Db.JobApplications
@@ -28,6 +41,11 @@ public class JobApplicationService : IJobApplicationService
             .ToListAsync();
     }
     
+    /// <summary>
+    /// Retrieves a Job Application by its ID.
+    /// </summary>
+    /// <param name="jobApplicationId">JobApplication identifier</param>
+    /// <returns>JobApplicationResponseDTO or null if not found</returns>
     public async Task<JobApplicationResponseDTO?> GetJobApplication(int jobApplicationId)
     {
         return await Provider.Db.JobApplications
@@ -62,7 +80,11 @@ public class JobApplicationService : IJobApplicationService
             .FirstOrDefaultAsync();
     }
 
-    
+    /// <summary>
+    /// Retrieves filtered and paginated Job Applications.
+    /// </summary>
+    /// <param name="filter">Filtering and paging criteria</param>
+    /// <returns>PagedResult with filtered JobApplicationResponseDTO items</returns>
     public async Task<PagedResult<JobApplicationResponseDTO>> GetFilteredJobApplications(BaseFilter<JobApplicationFilter> filter)
     {
         IQueryable<JobApplication> query = Provider.Db.JobApplications;
@@ -121,6 +143,14 @@ public class JobApplicationService : IJobApplicationService
         };
     }
     
+    /// <summary>
+    /// Checks if a user has already applied for a specific job.
+    /// </summary>
+    /// <param name="jobId">JobAd ID</param>
+    /// <param name="userId">User ID</param>
+    /// <returns>True if user already applied; otherwise false</returns>
+    /// <exception cref="ArgumentException">Thrown if jobId or userId is invalid</exception>
+    /// <exception cref="InvalidOperationException">Thrown if database context is not initialized</exception>
     public async Task<bool> HasUserAlreadyApplied(int jobId, int userId)
     {
         if (jobId <= 0 || userId <= 0)
@@ -137,6 +167,12 @@ public class JobApplicationService : IJobApplicationService
             .AnyAsync(a => a.JobAdId == jobId && a.UserId == userId);
     }
 
+    /// <summary>
+    /// Creates a new Job Application.
+    /// </summary>
+    /// <param name="dto">Create request DTO</param>
+    /// <returns>Created JobApplicationResponseDTO</returns>
+    /// <exception cref="InvalidOperationException">Thrown if user has already applied</exception>
     public async Task<JobApplicationResponseDTO> CreateJobApplication(JobApplicationCreateRequestDTO dto)
     {
         var exists = await Provider.Db.JobApplications
@@ -169,6 +205,11 @@ public class JobApplicationService : IJobApplicationService
         };
     }
 
+    /// <summary>
+    /// Updates an existing Job Application.
+    /// </summary>
+    /// <param name="dto">Update request DTO</param>
+    /// <returns>True if update successful; otherwise false</returns>
     public async Task<bool> UpdateJobApplication(JobApplicationUpdateRequestDTO dto)
     {
         var entity = await Provider.Db.JobApplications.FindAsync(dto.Id);
@@ -191,6 +232,11 @@ public class JobApplicationService : IJobApplicationService
         return true;
     }
 
+    /// <summary>
+    /// Deletes a Job Application by ID.
+    /// </summary>
+    /// <param name="id">JobApplication identifier</param>
+    /// <returns>True if deleted; otherwise false</returns>
     public async Task<bool> DeleteJobApplication(int id)
     {
         var entity = await Provider.Db.JobApplications.FindAsync(id);

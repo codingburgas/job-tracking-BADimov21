@@ -14,18 +14,24 @@ namespace JobTracking.API.Controllers;
 public class JobApplicationController : Controller
 {
     private readonly IJobApplicationService _jobApplicationService;
-    
+
     public JobApplicationController(IJobApplicationService jobApplicationService)
     {
         _jobApplicationService = jobApplicationService;
     }
 
+    /// <summary>
+    /// Gets a job application by ID.
+    /// </summary>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
         return Ok(await _jobApplicationService.GetJobApplication(id));
     }
-    
+
+    /// <summary>
+    /// Gets all job applications (paged).
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
     {
@@ -33,6 +39,9 @@ public class JobApplicationController : Controller
         return Ok(result);
     }
 
+    /// <summary>
+    /// Returns filtered job applications based on filters and pagination.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<JobApplicationFilter> jobApplicationFilter)
     {
@@ -40,6 +49,9 @@ public class JobApplicationController : Controller
         return Ok(result);
     }
 
+    /// <summary>
+    /// Creates a new job application. Rejects duplicate applications from same user to same job.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] JobApplicationCreateRequestDTO dto)
     {
@@ -52,6 +64,9 @@ public class JobApplicationController : Controller
         return Ok(created);
     }
 
+    /// <summary>
+    /// Updates an existing job application.
+    /// </summary>
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] JobApplicationUpdateRequestDTO dto)
     {
@@ -64,6 +79,9 @@ public class JobApplicationController : Controller
         return success ? NoContent() : NotFound();
     }
 
+    /// <summary>
+    /// Deletes a job application by ID.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

@@ -5,7 +5,6 @@ using JobTracking.Domain.DTOs.Request.Update;
 using JobTracking.Domain.DTOs.Response;
 using JobTracking.Domain.Filters;
 using JobTracking.Domain.Filters.Base;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,12 +15,15 @@ namespace JobTracking.API.Controllers;
 public class JobAdController : Controller
 {
     private readonly IJobAdService _jobAdService;
-    
+
     public JobAdController(IJobAdService jobAdService)
     {
         _jobAdService = jobAdService;
     }
 
+    /// <summary>
+    /// Returns a job ad by its ID.
+    /// </summary>
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(int id)
     {
@@ -34,7 +36,10 @@ public class JobAdController : Controller
 
         return Ok(result);
     }
-    
+
+    /// <summary>
+    /// Returns all job ads (paged).
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int page = 1, [FromQuery] int pageCount = 10)
     {
@@ -53,11 +58,13 @@ public class JobAdController : Controller
         return Ok(response);
     }
 
+    /// <summary>
+    /// Returns filtered job ads based on filter and pagination.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> GetFiltered([FromBody] BaseFilter<JobAdFilter> jobAdFilter)
     {
         var query = await _jobAdService.GetFilteredJobAds(jobAdFilter);
-
         var totalCount = await query.CountAsync();
 
         var items = await query
@@ -73,7 +80,10 @@ public class JobAdController : Controller
 
         return Ok(response);
     }
-    
+
+    /// <summary>
+    /// Creates a new job ad.
+    /// </summary>
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] JobAdCreateRequestDTO dto)
     {
@@ -81,6 +91,9 @@ public class JobAdController : Controller
         return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
     }
 
+    /// <summary>
+    /// Updates an existing job ad.
+    /// </summary>
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(int id, [FromBody] JobAdUpdateRequestDTO dto)
     {
@@ -93,6 +106,9 @@ public class JobAdController : Controller
         return success ? NoContent() : NotFound();
     }
 
+    /// <summary>
+    /// Deletes a job ad by its ID.
+    /// </summary>
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {

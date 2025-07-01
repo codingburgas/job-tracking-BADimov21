@@ -1,8 +1,23 @@
-﻿namespace JobTracking.Domain.Enums;
-
-public enum ApplicationStatusEnum
+﻿namespace JobTracking.Domain.Enums
 {
-    SUBMITTED,
-    APPROVED,
-    REJECTED
+    /// <summary>
+    /// Represents the various statuses a job application can have.
+    /// </summary>
+    public enum ApplicationStatusEnum
+    {
+        /// <summary>
+        /// The application has been submitted and is pending review.
+        /// </summary>
+        SUBMITTED,
+
+        /// <summary>
+        /// The application has been approved.
+        /// </summary>
+        APPROVED,
+
+        /// <summary>
+        /// The application has been rejected.
+        /// </summary>
+        REJECTED
+    }
 }

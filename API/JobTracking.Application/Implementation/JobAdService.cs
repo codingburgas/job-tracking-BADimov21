@@ -9,15 +9,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace JobTracking.Application.Implementation;
 
+/// <summary>
+/// Service for managing Job Ads.
+/// </summary>
 public class JobAdService : IJobAdService
 {
     protected DependencyProvider Provider { get; set; }
     
+    /// <summary>
+    /// Constructor accepting dependency provider.
+    /// </summary>
+    /// <param name="provider">Dependency provider instance</param>
     public JobAdService(DependencyProvider provider)
     {
         Provider = provider;
     }
 
+    /// <summary>
+    /// Retrieves paginated list of Job Ads.
+    /// </summary>
+    /// <param name="page">Page number (1-based)</param>
+    /// <param name="pageCount">Number of items per page</param>
+    /// <returns>List of JobAd entities</returns>
     public async Task<List<JobAd>> GetAllJobAds(int page, int pageCount)
     {
         return await Provider.Db.JobAds
@@ -26,6 +39,11 @@ public class JobAdService : IJobAdService
             .ToListAsync();
     }
     
+    /// <summary>
+    /// Gets a Job Ad by its ID.
+    /// </summary>
+    /// <param name="jobAdId">JobAd identifier</param>
+    /// <returns>JobAdResponseDTO or null if not found</returns>
     public async Task<JobAdResponseDTO?> GetJobAd(int jobAdId)
     {
         return await Provider.Db.JobAds
@@ -42,6 +60,11 @@ public class JobAdService : IJobAdService
             .FirstOrDefaultAsync();
     }
     
+    /// <summary>
+    /// Creates a new Job Ad.
+    /// </summary>
+    /// <param name="dto">Create request DTO</param>
+    /// <returns>Created JobAdResponseDTO</returns>
     public async Task<JobAdResponseDTO> CreateJobAd(JobAdCreateRequestDTO dto)
     {
         var entity = new JobAd
@@ -70,44 +93,35 @@ public class JobAdService : IJobAdService
         };
     }
     
+    /// <summary>
+    /// Updates an existing Job Ad.
+    /// </summary>
+    /// <param name="dto">Update request DTO</param>
+    /// <returns>True if updated, false if not found</returns>
     public async Task<bool> UpdateJobAd(JobAdUpdateRequestDTO dto)
     {
         var entity = await Provider.Db.JobAds.FindAsync(dto.Id);
 
         if (entity is null)
-        {
             return false;
-        }
 
         if (!string.IsNullOrWhiteSpace(dto.Title))
-        {
             entity.Title = dto.Title;
-        }
 
         if (!string.IsNullOrWhiteSpace(dto.CompanyName))
-        {
             entity.CompanyName = dto.CompanyName;
-        }
 
         if (!string.IsNullOrWhiteSpace(dto.Description))
-        {
             entity.Description = dto.Description;
-        }
 
         if (dto.PublishedOn.HasValue)
-        {
             entity.PublishedOn = dto.PublishedOn.Value;
-        }
 
         if (dto.IsOpen.HasValue)
-        {
             entity.IsOpen = dto.IsOpen.Value;
-        }
 
         if (dto.IsActive.HasValue)
-        {
             entity.IsActive = dto.IsActive.Value;
-        }
 
         entity.UpdatedOn = DateTime.UtcNow;
         entity.UpdatedBy = "system";
@@ -116,24 +130,30 @@ public class JobAdService : IJobAdService
         return true;
     }
     
+    /// <summary>
+    /// Deletes a Job Ad by ID.
+    /// </summary>
+    /// <param name="id">JobAd identifier</param>
+    /// <returns>True if deleted, false if not found</returns>
     public async Task<bool> DeleteJobAd(int id)
     {
         var entity = await Provider.Db.JobAds.FindAsync(id);
-        
         if (entity is null)
-        {
             return false;
-        }
 
         Provider.Db.JobAds.Remove(entity);
         await Provider.Db.SaveChangesAsync();
         return true;
     }
 
+    /// <summary>
+    /// Retrieves filtered Job Ads based on filter criteria.
+    /// </summary>
+    /// <param name="filter">Filter criteria</param>
+    /// <returns>IQueryable of filtered JobAdResponseDTO</returns>
     public async Task<IQueryable<JobAdResponseDTO>> GetFilteredJobAds(BaseFilter<JobAdFilter> filter)
     {
         IQueryable<JobAd> query = Provider.Db.JobAds;
-
         var jobAdFilter = filter.Filters;
 
         if (jobAdFilter is not null)
