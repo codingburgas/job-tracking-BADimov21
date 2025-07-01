@@ -51,35 +51,42 @@
     
 |                              Login Form                               |
 | :-------------------------------------------------------------------: | 
-| Picture to be added.                                                  |
+| <img align="center" src="https://github.com/user-attachments/assets/84fa4546-40a2-4d2f-99a0-f431e6bc1558" alt="Login Form">|
 
 <br>
 <br>
 
 |                          Registration Form                            |
 | :-------------------------------------------------------------------: | 
-| Picture to be added.                                                  |
+| <img align="center" src="https://github.com/user-attachments/assets/1429b8bd-b3d0-49ff-a44f-cf6099a27ef6" alt="Registration Form">|
+
+<br>
+<br>
+
+|                              Home Page                                |
+| :-------------------------------------------------------------------: | 
+| <img align="center" src="https://github.com/user-attachments/assets/7b23db21-97b4-4979-a707-e6ad4980a6e5" alt="Home Page">|
 
 <br>
 <br>
 
 |                             Profile Page                              |
 | :-------------------------------------------------------------------: | 
-| Picture to be added.                                                  |
+| <img align="center" src="https://github.com/user-attachments/assets/c9b829ab-5253-4380-8523-f029bf6cac6a" alt="Profile Page">|
 
 <br>
 <br>
 
 |                             Job Ads Page                              |
 | :-------------------------------------------------------------------: | 
-| Picture to be added.                                                  |
+| <img align="center" src="https://github.com/user-attachments/assets/3b8ab53a-6357-4e48-b26c-e82d38b30615" alt="Job Ads Page">|
 
 <br>
 <br>
 
 |                        Job Applications Page                          |
 | :-------------------------------------------------------------------: | 
-| Picture to be added.                                                  |
+| <img align="center" src="https://github.com/user-attachments/assets/7e5a759c-1c9c-4efb-95dd-047df178bd85" alt="Job Applications Page">|
 
 <br>
 <br>
