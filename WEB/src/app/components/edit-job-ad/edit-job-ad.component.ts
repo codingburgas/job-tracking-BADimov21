@@ -49,8 +49,10 @@ export class EditJobAdComponent implements OnInit {
 
   // Handle form submission for updating the job ad
   onSubmit() {
-    if (!this.jobAd) return;
-
+    if (!this.jobAd) {
+      return;
+    }
+    
     this.isSaving = true;
     this.successMessage = null;
     this.errorMessage = null;
