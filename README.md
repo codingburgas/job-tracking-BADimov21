@@ -129,10 +129,11 @@
 <h2 id="documentation">Documentation</h2>
 <hr>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="">Documentation</a>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://codingburgas-my.sharepoint.com/:b:/g/personal/badimov21_codingburgas_bg/EXy4UG46MR5HjvqVJL7htL4Bhrh4xx9-B6BFkNrZcYyi5g?e=biSWXS">Documentation</a>
 <br>
-<img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Microsoft_PowerPoint_Logo.png" width="20" alt="MS PowerPoint Logo"> <a href="">Presentation</a>
+<img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Microsoft_PowerPoint_Logo.png" width="20" alt="MS PowerPoint Logo"> <a href="https://codingburgas-my.sharepoint.com/:p:/g/personal/badimov21_codingburgas_bg/EU4-aWhl2DJCp2NreNM1UYoBGcR4WmP0T_sJ6zze78SXoA?e=08MvZu">Presentation</a>
 <br>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://codingburgas-my.sharepoint.com/:b:/g/personal/badimov21_codingburgas_bg/EcIKET3NFH9Jpuwgn6ue8rIBg9zA3zwJ8f2Q23qoQ2V0pA?e=xaOhNe">Project Regulations (Bulgarian)</a>
 
 <table>
     <tr>
