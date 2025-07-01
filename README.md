@@ -23,6 +23,7 @@
 <details open="open">
     <summary>Table of Contents</summary>
     <li><a href="#about-the-project">  The Project</a></li>
+    <li><a href="#demonstration">  Demonstration</a></li>
     <li><a href="#used-technologies">  Technologies</a></li>
     <li><a href="#contributors">   Contributors</a></li>
     <li><a href="#documentation">  Documentation</a></li>
@@ -39,9 +40,12 @@
     <strong>Grindin'</strong> is a web application that helps you easily track and manage job applications. It eases the process of searching and applying for a variety of job positions.
 </p>
 <p> - Bozhidar Dimov ❤️</p>
-    
-    
+
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
+
+<h2 id="demonstration">Demonstration</h2>
+    
+<h3>See a video demonstration of the project in action <a href="https://codingburgas-my.sharepoint.com/:v:/g/personal/badimov21_codingburgas_bg/EQYxjIzO9HJOniGhH35P8acBSeBn5LLpidP3j6yhhFkV7A?e=SLm5HS&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJTdHJlYW1XZWJBcHAiLCJyZWZlcnJhbFZpZXciOiJTaGFyZURpYWxvZy1MaW5rIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXcifX0%3D">here</a>.<h3>
     
 <summary>Screenshots</summary>
 <details open="open">
@@ -129,11 +133,11 @@
 <h2 id="documentation">Documentation</h2>
 <hr>
 
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://codingburgas-my.sharepoint.com/:b:/g/personal/badimov21_codingburgas_bg/EXy4UG46MR5HjvqVJL7htL4Bhrh4xx9-B6BFkNrZcYyi5g?e=biSWXS">Documentation</a>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://codingburgas-my.sharepoint.com/:b:/g/personal/badimov21_codingburgas_bg/ERi-EpbOTZdKgDhq-ZouvncBDY-55eR0Da9EfUtdx_AjKA?e=tYnkBZ">Documentation</a>
 <br>
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Microsoft_PowerPoint_Logo.png" width="20" alt="MS PowerPoint Logo"> <a href="https://codingburgas-my.sharepoint.com/:p:/g/personal/badimov21_codingburgas_bg/EU4-aWhl2DJCp2NreNM1UYoBGcR4WmP0T_sJ6zze78SXoA?e=08MvZu">Presentation</a>
 <br>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://codingburgas-my.sharepoint.com/:b:/g/personal/badimov21_codingburgas_bg/EcIKET3NFH9Jpuwgn6ue8rIBg9zA3zwJ8f2Q23qoQ2V0pA?e=xaOhNe">Project Regulations (Bulgarian)</a>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Microsoft_Office_Word_%282019%E2%80%93present%29.svg/2203px-Microsoft_Office_Word_%282019%E2%80%93present%29.svg.png" width="20" alt="MS Word Logo"> <a href="https://codingburgas-my.sharepoint.com/:b:/g/personal/badimov21_codingburgas_bg/EcIKET3NFH9Jpuwgn6ue8rIBtnxb5746jaTL_YSvMbAIow?e=4Ovasg">Project Regulations (Bulgarian)</a>
 
 <table>
     <tr>
