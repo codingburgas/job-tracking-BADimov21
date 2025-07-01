@@ -157,6 +157,93 @@
     </tr>
 </table>
 
+<br>
+<h2>Project Structure</h2>
+
+```bash
+├───API
+│   ├───JobTracking.API
+│   │   ├───Controllers
+│   │   │   └───Common
+│   │   └───Properties
+│   ├───JobTracking.Application
+│   │   ├───Contracts
+│   │   │   └───Base
+│   │   └───Implementation
+│   ├───JobTracking.DataAccess
+│   │   ├───Data
+│   │   │   ├───Base
+│   │   │   └───Models
+│   │   ├───Migrations
+│   │   └───Persistance
+│   └───JobTracking.Domain
+│       ├───Constants
+│       ├───DTOs
+│       │   ├───Request
+│       │   │   ├───Create
+│       │   │   └───Update
+│       │   └───Response
+│       ├───Enums
+│       └───Filters
+│           └───Base
+├───docs
+│   ├───diagrams
+│   ├───presentation
+│   └───regulations
+└───WEB
+    ├───.vscode
+    └───src
+        ├───app
+        │   ├───components
+        │   │   ├───authentication
+        │   │   │   ├───login-form
+        │   │   │   ├───registration-form
+        │   │   │   └───unauthorized
+        │   │   ├───create-job-ad
+        │   │   ├───edit-job-ad
+        │   │   ├───home
+        │   │   ├───job-ad
+        │   │   ├───job-application
+        │   │   ├───job-application-review
+        │   │   ├───navigation
+        │   │   │   ├───footer
+        │   │   │   └───nav-bar
+        │   │   ├───shared
+        │   │   │   └───profile
+        │   │   └───user
+        │   ├───guards
+        │   ├───models
+        │   │   └───enums
+        │   ├───services
+        │   └───utils
+        └───assets
+```
+
+<h2>API Endpoints</h2>
+
+| Endpoint                           | Method | Purpose                              |
+| ---------------------------------- | ------ | ------------------------------------ |
+| `/api/JobAd/GetById/{id}`          | GET    | Fetch single job ad                  |
+| `/api/JobAd/GetAll`                | GET    | Fetch paginated list of job ads      |
+| `/api/JobAd/GetFiltered`           | POST   | Fetch job ads with filters           |
+| `/api/JobAd/Add`                   | POST   | Create a new job ad                  |
+| `/api/JobAd/Update/{id}`           | PUT    | Update existing job ad               |
+| `/api/JobAd/Delete/{id}`           | DELETE | Delete job ad                        |
+| `/api/JobApplication/GetById/{id}` | GET    | Fetch single job application         |
+| `/api/JobApplication/GetAll`       | GET    | Fetch paginated list of applications |
+| `/api/JobApplication/GetFiltered`  | POST   | Fetch filtered job applications      |
+| `/api/JobApplication/Add`          | POST   | Submit a new job application         |
+| `/api/JobApplication/Update/{id}`  | PUT    | Update status of an application      |
+| `/api/JobApplication/Delete/{id}`  | DELETE | Delete a job application             |
+| `/api/User/GetById`                | GET    | Fetch user by ID                     |
+| `/api/User/GetAll`                 | GET    | Fetch paginated list of users        |
+| `/api/User/GetFiltered`            | POST   | Fetch filtered user list             |
+| `/api/User/Login`                  | POST   | Authenticate a user                  |
+| `/api/User/Add`                    | POST   | Register a new user                  |
+| `/api/User/Update/{id}`            | PUT    | Update existing user                 |
+| `/api/User/Delete/{id}`            | DELETE | Delete a user                        |
+
+
 <hr>
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/rainbow.png)
